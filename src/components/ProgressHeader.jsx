@@ -4,7 +4,7 @@ import { formatDate } from '../lib/progress'
 
 // Used on Emily's own path, and on Sarah's or David's view of a new hire
 // (pass heading/intro and onOverdueClick to change the wording and action).
-export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, newHire, heading, intro, onOverdueClick, overdueHint }) {
+export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, newHire, heading, intro, onOverdueClick, overdueHint, onRingClick }) {
   const done = stats.reduce((s, x) => s + x.done, 0)
   const total = stats.reduce((s, x) => s + x.total, 0)
 
@@ -31,6 +31,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
         </div>
 
         <div className="grid grid-cols-[auto_1fr] items-center gap-4 lg:flex lg:flex-1 lg:gap-x-6">
+          <Ring onClick={onRingClick && (() => onRingClick('all'))} label="See all your tasks" hint>
           <SegmentedRing
             className="size-24 md:size-[124px]"
             size={124}
@@ -49,10 +50,12 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
               <div className="text-xs font-bold text-ink-soft">of {total} done</div>
             </div>
           </SegmentedRing>
+          </Ring>
 
           <ul className="col-span-2 flex justify-around gap-2 lg:col-span-1 lg:justify-start lg:gap-5">
             {stats.map(({ phase, done, total }) => (
-              <li key={phase.id} className="flex w-28 flex-col items-center gap-2 text-center">
+              <li key={phase.id} className="w-28">
+                <Ring onClick={onRingClick && (() => onRingClick(phase.id))} label={`See ${phase.name} tasks`} className="flex w-full flex-col items-center gap-2 text-center">
                 <PhaseRing phase={phase} done={done} total={total} />
                 <div className="leading-tight">
                   <div className="flex items-center justify-center gap-1.5 whitespace-nowrap text-sm font-extrabold text-ink">
@@ -63,6 +66,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
                     {done === total ? 'All done' : `${total - done} to go`}
                   </div>
                 </div>
+                </Ring>
               </li>
             ))}
           </ul>
@@ -99,5 +103,22 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
         </div>
       </div>
     </section>
+  )
+}
+
+// Rings become buttons that open the full task list when a click handler is given.
+function Ring({ onClick, label, className = '', hint, children }) {
+  if (!onClick) return <div className={className}>{children}</div>
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={label}
+      aria-label={label}
+      className={`group rounded-2xl p-1 transition-transform hover:scale-[1.04] ${className}`}
+    >
+      {children}
+      {hint && <span className="mt-1 block text-center text-xs font-extrabold text-[#2B7539] group-hover:underline">See all tasks</span>}
+    </button>
   )
 }

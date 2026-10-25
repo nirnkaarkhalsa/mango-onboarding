@@ -52,6 +52,11 @@ _What changed after clicking through v1 as Emily would._
 | 9 | Emily couldn't see what she was working toward. | A faded graduated Mango waits at the end of the path as a teaser, and comes into full color when she finishes. |
 | 10 | With the demo on Day 19, the mascot needed a clear rule for when it grows. | Mango grows one size only when Emily fully completes a section: small and green until Before Day 1 is done, bigger and yellow-green until First Week is done, then fully ripe, then graduated. On Day 19 he starts small because the handbook is still open, so the demo shows him grow twice and graduate in a few clicks. |
 | 11 | The First Week section bar looked more olive than yellow. | Shifted First Week to a yellower shade (rechecked for colorblind users) and brightened its section bar. |
+| 12 | After a task, Emily was pushed straight into the next one, and "Next task" buttons kept prompting her. | Every completion now shows a celebration, and one click returns her to the path, scrolled to the next task. The "Next task" buttons are gone. |
+| 13 | Random celebrations made the demo unpredictable. | The celebrations play in a fixed order: a dance, a backflip, a party, then graduation. The two section completions also show Mango growing. |
+| 14 | The progress rings showed totals but not which tasks they counted. | Clicking any ring opens a list of every task, or one section's, filtered by done and to do. Each task opens from there. |
+| 15 | In Mail, Emily could read a message but not see how to reach the sender. | Clicking the sender's name shows the same contact card used in task details. |
+| 16 | The page looked the same no matter how far Emily had come. | The background takes on a hint of yellow once she reaches First Week, and a hint more green in First Month. |
 
 ## Added in v1.1: Sarah's and David's views
 

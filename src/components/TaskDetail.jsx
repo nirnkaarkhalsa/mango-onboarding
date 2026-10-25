@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { AtSign, Calendar, ChevronDown, CircleAlert, CircleCheck, Clock, ExternalLink, Hash, MapPin, Phone, Send, User, X } from 'lucide-react'
+import { Calendar, ChevronDown, CircleAlert, CircleCheck, Clock, ExternalLink, Send, User, X } from 'lucide-react'
+import ContactCard from './ContactCard'
 import { formatDate, formatMinutes, isOverdue, phaseById, relativeDue } from '../lib/progress'
 import { typeIcons } from './icons'
 
 // mode 'newhire': Emily's own task, with "Task completed?" and Next task.
 // mode 'team': Sarah or David viewing it. They can't check it off, but can
 // message the new hire about it.
-export default function TaskDetail({ task, entry, contact, nextTask, onClose, onToggleDone, onOpenNext, mode = 'newhire', hireName, onSendMessage }) {
+export default function TaskDetail({ task, entry, contact, onClose, onToggleDone, mode = 'newhire', hireName, onSendMessage }) {
   const phase = phaseById(task.phase)
   const owner = contact
   const team = mode === 'team'
@@ -61,7 +62,7 @@ export default function TaskDetail({ task, entry, contact, nextTask, onClose, on
             <StatusPill done={done} overdue={overdue} inProgress={entry?.status === 'in_progress'} phase={phase} />
           ) : done ? (
             <div className="mt-4 flex flex-col items-stretch gap-1.5 sm:absolute sm:right-16 sm:top-6 sm:mt-0 sm:items-end">
-              <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} />
+              <BackButton onClose={onClose} />
               <span className="flex items-center justify-center gap-1.5 text-sm font-bold" style={{ color: phase.deep }}>
                 <CircleCheck size={16} strokeWidth={2.75} aria-hidden /> Completed
               </span>
@@ -119,36 +120,8 @@ export default function TaskDetail({ task, entry, contact, nextTask, onClose, on
           </dl>
 
           {showContact && (
-            <div id="contact-card" className="pop-enter mt-3 rounded-2xl border-2 p-4" style={{ borderColor: phase.tint }}>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="grid size-11 place-items-center rounded-full font-display text-lg font-bold"
-                    style={{ background: phase.tint, color: phase.deep }}
-                    aria-hidden
-                  >
-                    {owner.name === 'IT Help Desk' ? 'IT' : owner.name[0]}
-                  </span>
-                  <div className="leading-tight">
-                    <div className="font-extrabold text-ink">{owner.name}</div>
-                    <div className="text-sm text-ink-soft">{owner.title}</div>
-                  </div>
-                </div>
-                <a
-                  href={`mailto:${owner.email}?subject=${encodeURIComponent(`Question about: ${task.title}`)}`}
-                  className="btn-chunky rounded-xl px-4 py-2 font-display font-bold text-white"
-                  style={{ background: phase.deep, '--btn-deep': '#1f3a2a' }}
-                >
-                  Email {owner.name === 'IT Help Desk' ? 'IT' : owner.name}
-                </a>
-              </div>
-              <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
-                <ContactRow icon={AtSign} label="Email">{owner.email}</ContactRow>
-                <ContactRow icon={Hash} label="Slack">{owner.slack}</ContactRow>
-                <ContactRow icon={Phone} label="Phone">{owner.phone}</ContactRow>
-                <ContactRow icon={MapPin} label="Find them">{owner.where}</ContactRow>
-              </ul>
-              <p className="mt-3 text-sm text-ink-soft">{owner.hours}.</p>
+            <div className="mt-3">
+              <ContactCard id="contact-card" contact={owner} tint={phase.tint} deep={phase.deep} emailSubject={`Question about: ${task.title}`} />
             </div>
           )}
 
@@ -236,7 +209,7 @@ export default function TaskDetail({ task, entry, contact, nextTask, onClose, on
             </div>
           ) : done ? (
             <div className="mt-8 flex flex-col items-center gap-3">
-              <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} wide />
+              <BackButton onClose={onClose} wide />
               <button
                 type="button"
                 onClick={() => onToggleDone(task.id, false)}
@@ -277,41 +250,16 @@ function StatusPill({ done, overdue, inProgress, phase }) {
   )
 }
 
-function NextButton({ nextTask, onOpenNext, onClose, wide }) {
-  const next = nextTask ? phaseById(nextTask.phase) : null
-  if (!nextTask) {
-    return (
-      <button
-        type="button"
-        onClick={onClose}
-        className={`btn-chunky rounded-2xl bg-[#2B7539] px-5 py-2.5 font-display text-lg font-bold text-white ${wide ? 'w-full py-3 text-xl' : ''}`}
-        style={{ '--btn-deep': '#1f3a2a' }}
-      >
-        Back to my path
-      </button>
-    )
-  }
+function BackButton({ onClose, wide }) {
   return (
     <button
       type="button"
-      onClick={() => onOpenNext(nextTask.id)}
-      className={`btn-chunky rounded-2xl px-5 font-display font-bold text-white ${wide ? 'w-full py-3 text-center' : 'py-2.5 text-left'}`}
-      style={{ background: next.deep, '--btn-deep': '#1f3a2a' }}
-      aria-label={`Next task: ${nextTask.title}`}
+      onClick={onClose}
+      className={`btn-chunky rounded-2xl bg-[#2B7539] px-5 font-display font-bold text-white ${wide ? 'w-full py-3 text-xl' : 'py-2.5 text-lg'}`}
+      style={{ '--btn-deep': '#1f3a2a' }}
     >
-      <span className={`block leading-tight ${wide ? 'text-xl' : 'text-lg'}`}>Next task</span>
-      {wide && <span className="block text-sm font-semibold opacity-90">{nextTask.title}</span>}
+      Back to my path
     </button>
-  )
-}
-
-function ContactRow({ icon: Icon, label, children }) {
-  return (
-    <li className="flex items-center gap-2.5 rounded-xl bg-paper px-3 py-2">
-      <Icon size={16} className="shrink-0 text-ink-soft" aria-hidden />
-      <span className="sr-only">{label}: </span>
-      <span className="truncate font-bold text-ink">{children}</span>
-    </li>
   )
 }
 

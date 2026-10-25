@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { CalendarDays, CircleCheck, Mail, Map as MapIcon, RotateCcw, Send, UserPlus, Users } from 'lucide-react'
 import { DEMO_TODAY } from './data/onboarding'
 import { buildSeed, viewers } from './data/roster'
@@ -15,6 +15,10 @@ const STORE_KEY = 'mango-onboarding:store:v3'
 const seed = buildSeed()
 
 const firstTab = { emily: 'path', sarah: 'people', david: 'people' }
+
+// Emily's page background shifts a touch with each section she reaches:
+// the usual pale green, a hint of yellow in First Week, a hint more green in First Month.
+const PAPER = { before: '#F6FAF2', week: '#FAF8E6', month: '#EDF6E6' }
 
 export default function App() {
   const [store, setStore] = usePersistentState(STORE_KEY, seed)
@@ -36,6 +40,10 @@ export default function App() {
   const emilyDone = emilyTasks.filter((t) => emilyState[t.id]?.status === 'done').length
   const graduated = !nextTask(emilyTasks, emilyState)
   const stage = viewerId === 'emily' ? (graduated ? 'month' : stageFor(emilyTasks, emilyState)) : 'month'
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--color-paper', viewerId === 'emily' ? PAPER[stage] : PAPER.before)
+  }, [viewerId, stage])
 
   const setEmilyState = useCallback(
     (updater) =>

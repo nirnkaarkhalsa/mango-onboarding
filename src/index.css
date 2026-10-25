@@ -18,11 +18,13 @@
 
 html {
   background: var(--color-paper);
+  transition: background-color 900ms ease;
 }
 
 body {
   margin: 0;
   background: var(--color-paper);
+  transition: background-color 900ms ease;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -233,8 +235,36 @@ body {
 }
 .burst-dance,
 .burst-backflip,
-.burst-party {
+.burst-party,
+.burst-graduate {
   transform-origin: 50% 70%;
+}
+.burst-graduate {
+  animation: burst-in 300ms ease-out both, jump-for-joy 1.5s cubic-bezier(0.3, 0, 0.4, 1) 300ms both;
+}
+@keyframes jump-for-joy {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0) scale(1, 1);
+  }
+  12% {
+    transform: translateY(4px) scale(1.06, 0.92);
+  }
+  28% {
+    transform: translateY(-34px) rotate(-8deg);
+  }
+  42% {
+    transform: translateY(0) scale(1.05, 0.94);
+  }
+  60% {
+    transform: translateY(-58px) rotate(10deg) scale(1.04);
+  }
+  80% {
+    transform: translateY(0) scale(1.06, 0.92);
+  }
+  90% {
+    transform: translateY(-12px);
+  }
 }
 .burst-dance {
   animation: burst-in 300ms ease-out both, dance 1.6s ease-in-out 300ms both;
@@ -323,11 +353,14 @@ body {
   .burst-bubble,
   .burst-dance,
   .burst-backflip,
-  .burst-party {
+  .burst-party,
+  .burst-graduate {
     animation: none;
   }
   .ring-arc,
-  .mascot-grow {
+  .mascot-grow,
+  html,
+  body {
     transition: none;
   }
 }

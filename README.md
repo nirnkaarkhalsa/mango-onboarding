@@ -16,10 +16,13 @@ New hires see one place with everything they need to do, broken into **Before Da
 - **Keeps everything in one place.** Forms, documents, trainings, meetings and setup steps live on the path. Messages from HR and managers live separately in **Mail**, because they are information, not tasks.
 - **Shows the plan by date.** The **Calendar** tab puts every task on the day it's due.
 - **Tracks progress at a glance.** A ring for overall progress, one ring per phase, and an overdue count that only turns red when something needs attention.
-- **Opens each task in full.** Due date, time it takes, who to ask (click the name for their contact details), step-by-step instructions and links, plus a **Task completed? Yes** box that turns into a **Next task** button once checked.
-- **Celebrates progress.** Confetti and a quick Mango dance, backflip or party for each task. Finishing a phase grows Mango from small and green to fully ripe. Finishing everything shows Mango graduating.
+- **Opens each task in full.** Due date, time it takes, who to ask (click the name for their contact details), step-by-step instructions and links, plus a **Task completed? Yes** box.
+- **Celebrates progress.** Each completed task gets confetti and its own Mango celebration: a dance, a backflip, a party, then graduation. Finishing a section grows Mango from small and green to fully ripe. One click returns to the path, right at the next task.
+- **Shows every task from the rings.** Click any progress ring to see all tasks, or one section's, filtered by done and to do.
+- **Shifts color as you go.** The page background takes on a hint of yellow in First Week and a hint more green in First Month.
 - **Fills in as you go.** Unfinished tasks are a light ghost of their phase color and fill in when done. A faded graduated Mango waits at the end of the path.
 - **Keeps red for problems.** Phases are green, yellow-green and golden orange, so red only ever means overdue.
+- **Shows who sent each message.** In Mail, click the sender's name for their contact details.
 - **Remembers progress.** Completed tasks stay completed after a refresh. The **Completed** tab lists them so Emily can reopen anything later.
 
 ## What Sarah sees
@@ -50,12 +53,12 @@ Then open the address it prints, usually http://localhost:5173.
 
 1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 15 of 19 tasks, and two are overdue.
 2. Mango points to the first one: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
-3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete, and Mango grows from small and green to yellow-green.
-4. Click **Start First Week** to jump straight to the other overdue task, security training, and complete it. Mango grows again, now fully ripe.
-5. Click **Start First Month**, complete the 30-day check-in, and Mango pops into the corner to celebrate. Click **Next task**.
-6. Complete the last task and Mango graduates.
-7. In any task, click the name under **Questions?** to see how to reach that person.
-8. Open **Calendar** to see every task by due date, **Mail** for messages from Sarah, David and IT, and **Completed** to revisit finished tasks.
+3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete: Mango dances and grows from small and green to yellow-green. Click **Back to my path** and you land on the next task, and the background turns a touch yellow.
+4. Open the glowing stone, security training, and complete it. Mango does a backflip and grows fully ripe, and the background turns a touch green.
+5. Complete the 30-day check-in for a Mango party, then the last task for graduation.
+6. Click a progress ring at the top to see every task, done and to do.
+7. In any task, click the name under **Questions?** to see how to reach that person. In **Mail**, click a sender's name to do the same.
+8. Open **Calendar** to see every task by due date, and **Completed** to revisit finished tasks.
 
 Then the HR side:
 

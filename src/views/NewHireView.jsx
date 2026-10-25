@@ -10,8 +10,8 @@ import TaskDetail from '../components/TaskDetail'
 import MailTab from '../components/MailTab'
 import CompletedTab from '../components/CompletedTab'
 import CalendarTab from '../components/CalendarTab'
-import Celebration from '../components/Celebration'
-import MascotBurst, { MOVES } from '../components/MascotBurst'
+import Celebration, { MOVES } from '../components/Celebration'
+import ProgressDetail from '../components/ProgressDetail'
 
 const cheers = [
   'Nice work! That is {done} of {total} done.',
@@ -29,8 +29,8 @@ export default function NewHireView({ hire, tasks, taskState, setTaskState, mess
   const [celebration, setCelebration] = useState(null)
   const [cheer, setCheer] = useState({ count: 0, message: null })
   const [cheering, setCheering] = useState(false)
-  const [burst, setBurst] = useState(null)
   const [flashId, setFlashId] = useState(null)
+  const [ringView, setRingView] = useState(null)
 
   const tasksById = useMemo(() => Object.fromEntries(tasks.map((t) => [t.id, t])), [tasks])
 
@@ -67,8 +67,6 @@ export default function NewHireView({ hire, tasks, taskState, setTaskState, mess
   )
 
   const closeTask = useCallback(() => setOpenId(null), [])
-  const endBurst = useCallback(() => setBurst(null), [])
-  const closeCelebration = useCallback(() => setCelebration(null), [])
 
   // "Show me where": scroll the path to the current task and flash it.
   const showOnPath = (id) => {
@@ -105,51 +103,47 @@ export default function NewHireView({ hire, tasks, taskState, setTaskState, mess
       disableForReducedMotion: true,
     })
 
-    setCheer((c) => ({
-      count: c.count + 1,
-      message: fill(cheers[c.count % cheers.length], { done: nowDone, total, left: total - nowDone }),
-    }))
+    const cheerMessage = fill(cheers[cheer.count % cheers.length], { done: nowDone, total, left: total - nowDone })
+    setCheer((c) => ({ count: c.count + 1, message: cheerMessage }))
+
+    // Close the task and celebrate. One click on the celebration returns Emily
+    // to her path, scrolled to the next task.
+    setOpenId(null)
+    const move = MOVES[cheer.count % MOVES.length]
 
     if (allDone) {
-      // Last task: the mango graduates.
-      setOpenId(null)
-      setTimeout(() => {
-        setCelebration({ kind: 'graduate', finished: phase, next: null })
-        const colors = phases.flatMap((x) => [x.color, x.light])
-        ;[0, 250, 500].forEach((delay, i) =>
-          setTimeout(
-            () =>
-              confetti({ particleCount: 140, spread: 120, origin: { x: [0.2, 0.8, 0.5][i], y: 0.45 }, colors, disableForReducedMotion: true }),
-            delay,
-          ),
-        )
-      }, 350)
+      setCelebration({ kind: 'graduate', finished: phase, next: null })
+      const colors = phases.flatMap((x) => [x.color, x.light])
+      ;[200, 450, 700].forEach((delay, i) =>
+        setTimeout(
+          () => confetti({ particleCount: 140, spread: 120, origin: { x: [0.2, 0.8, 0.5][i], y: 0.45 }, colors, disableForReducedMotion: true }),
+          delay,
+        ),
+      )
     } else if (phaseDone) {
-      // Finished a section. The task stays open underneath so "Start <next section>"
-      // can jump straight to the next task.
       const upcoming = nextTask(tasks, updated)
       const nextPhase = phaseById(upcoming.phase)
       const grew = stageFor(tasks, updated) !== stageFor(tasks, taskState)
-      setTimeout(() => {
-        setCelebration({ kind: 'phase', finished: phase, next: nextPhase, grew, fromStage: stageFor(tasks, taskState) })
-        confetti({ particleCount: 120, spread: 120, origin: { y: 0.4 }, colors: [nextPhase.color, nextPhase.light, '#ffffff'], disableForReducedMotion: true })
-      }, 350)
+      setCelebration({ kind: 'phase', move, finished: phase, next: nextPhase, grew, fromStage: stageFor(tasks, taskState) })
+      setTimeout(
+        () => confetti({ particleCount: 120, spread: 120, origin: { y: 0.4 }, colors: [nextPhase.color, nextPhase.light, '#ffffff'], disableForReducedMotion: true }),
+        250,
+      )
     } else {
-      // A regular task: Mango pops out to dance, flip or party.
-      setBurst({ key: Date.now(), move: MOVES[Math.floor(Math.random() * MOVES.length)] })
+      setCelebration({ kind: 'task', move, finished: phase, next: null, message: `${cheerMessage} Your next task is waiting on your path.` })
     }
   }
 
-  const continueAfterCelebration = () => {
+  const closeCelebration = () => {
     setCelebration(null)
-    if (next) openTask(next.id)
+    if (tab === 'path' && next) setTimeout(() => showOnPath(next.id), 60)
   }
 
   return (
     <>
       {tab === 'path' && (
         <div className="flex flex-col gap-8">
-          <ProgressHeader stats={stats} overdue={overdue} dayNumber={dayNumber} onOpenTask={openTask} newHire={hire} />
+          <ProgressHeader stats={stats} overdue={overdue} dayNumber={dayNumber} onOpenTask={openTask} newHire={hire} onRingClick={setRingView} />
           <div className="mx-auto flex w-full max-w-3xl flex-col gap-10">
             <FocusCard
               task={next}
@@ -181,27 +175,37 @@ export default function NewHireView({ hire, tasks, taskState, setTaskState, mess
           task={tasksById[openId]}
           entry={taskState[openId]}
           contact={contactFor(tasksById[openId].owner, hire)}
-          nextTask={next && next.id !== openId ? next : null}
           onClose={closeTask}
           onToggleDone={toggleDone}
-          onOpenNext={openTask}
         />
       )}
 
       {celebration && (
         <Celebration
           kind={celebration.kind}
+          move={celebration.move}
+          message={celebration.message}
           stage={stage}
           grew={celebration.grew}
           fromStage={celebration.fromStage}
           finished={celebration.finished}
           next={celebration.next}
-          onContinue={continueAfterCelebration}
           onClose={closeCelebration}
         />
       )}
 
-      {burst && <MascotBurst key={burst.key} move={burst.move} stage={stage} onDone={endBurst} />}
+      {ringView && (
+        <ProgressDetail
+          tasks={tasks}
+          state={taskState}
+          initialPhase={ringView}
+          onClose={() => setRingView(null)}
+          onOpenTask={(id) => {
+            setRingView(null)
+            openTask(id)
+          }}
+        />
+      )}
     </>
   )
 }

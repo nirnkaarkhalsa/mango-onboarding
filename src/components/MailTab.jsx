@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { ArrowLeft, Inbox } from 'lucide-react'
+import { ArrowLeft, ChevronDown, Inbox } from 'lucide-react'
+import { hr, itDesk, managers } from '../data/roster'
+import ContactCard from './ContactCard'
 import { formatDate } from '../lib/progress'
 
 const avatarColors = {
@@ -7,6 +9,9 @@ const avatarColors = {
   David: { bg: '#D9EED8', fg: '#2B7539' },
   'IT Help Desk': { bg: '#E6EBE3', fg: '#4F6656' },
 }
+
+const contacts = [hr, itDesk, ...Object.values(managers)]
+const contactByName = (name) => contacts.find((c) => c.name === name)
 
 function Avatar({ name }) {
   const c = avatarColors[name] ?? avatarColors['IT Help Desk']
@@ -23,10 +28,13 @@ function Avatar({ name }) {
 
 export default function MailTab({ messages, readIds, onRead, tasksById, onOpenTask }) {
   const [openId, setOpenId] = useState(null)
+  const [showContact, setShowContact] = useState(false)
   const open = messages.find((m) => m.id === openId)
+  const sender = open ? contactByName(open.from) : null
 
   const select = (id) => {
     setOpenId(id)
+    setShowContact(false)
     onRead(id)
   }
 
@@ -81,12 +89,31 @@ export default function MailTab({ messages, readIds, onRead, tasksById, onOpenTa
               <div className="flex items-center gap-3">
                 <Avatar name={open.from} />
                 <div>
-                  <div className="font-extrabold text-ink">{open.from}</div>
+                  {sender ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowContact((v) => !v)}
+                      aria-expanded={showContact}
+                      aria-controls="sender-card"
+                      className="flex items-center gap-1 font-extrabold text-ink underline decoration-[#8FD28F] decoration-2 underline-offset-2"
+                    >
+                      {open.from}
+                      <ChevronDown size={16} strokeWidth={2.75} className={`transition-transform ${showContact ? 'rotate-180' : ''}`} aria-hidden />
+                      <span className="sr-only">: show contact details</span>
+                    </button>
+                  ) : (
+                    <div className="font-extrabold text-ink">{open.from}</div>
+                  )}
                   <div className="text-sm text-ink-soft">
                     {open.fromTitle}, {formatDate(open.date)} at {open.time}
                   </div>
                 </div>
               </div>
+              {showContact && sender && (
+                <div className="mt-4">
+                  <ContactCard id="sender-card" contact={sender} emailSubject={`Re: ${open.subject}`} />
+                </div>
+              )}
               <h2 className="mt-5 font-display text-2xl font-bold leading-tight text-ink">{open.subject}</h2>
               <div className="mt-3 flex max-w-prose flex-col gap-3 leading-relaxed text-ink">
                 {open.body.map((p, i) => (
