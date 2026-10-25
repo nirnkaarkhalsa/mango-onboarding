@@ -25,8 +25,8 @@ _What the brief didn't say, and what we assumed instead._
 | 7 | Must tasks be done in order? | No. Future tasks are dimmed but can still be opened. | Unlike lessons in a game, real onboarding tasks often overlap. |
 | 8 | How does Emily know what to do first? | The path highlights one **"Start here"** task: the earliest-due task that isn't done. | Directly answers Emily: "I just want to know what I should focus on first." |
 | 9 | Where does task data come from? | Made-up sample tasks, messages and links stored in the app. Progress saves in the browser. | No HR system or real content is available for the prototype. |
-| 11 | Contact details | Made-up emails on the reserved `brightpath.example` domain, and phone numbers in the fictional 555 range. | Realistic for the demo without pointing at real people. |
 | 10 | Branding | Original mango mascot and an orange-and-green palette inspired by MangoApps. | Makes onboarding feel encouraging, like a game, rather than a chore. |
+| 11 | Contact details | Made-up emails on the reserved `brightpath.example` domain, and phone numbers in the fictional 555 range. | Realistic for the demo without pointing at real people. |
 
 ## Changes after the first test
 
