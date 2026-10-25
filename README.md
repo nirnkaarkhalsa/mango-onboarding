@@ -39,8 +39,8 @@ Then open the address it prints, usually http://localhost:5173.
 
 1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 15 of 19 tasks, and two are overdue.
 2. Mango points to the first one: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
-3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete.
-4. Click **Start First Week** to jump straight to the other overdue task, security training, and complete it.
+3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete, and Mango grows from small and green to yellow-green.
+4. Click **Start First Week** to jump straight to the other overdue task, security training, and complete it. Mango grows again, now fully ripe.
 5. Click **Start First Month**, complete the 30-day check-in, and Mango pops into the corner to celebrate. Click **Next task**.
 6. Complete the last task and Mango graduates.
 7. In any task, click the name under **Questions?** to see how to reach that person.

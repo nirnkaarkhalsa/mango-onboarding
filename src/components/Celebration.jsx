@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import Mascot from './Mascot'
+import Mascot, { mascotStages } from './Mascot'
 
 // Shown when Emily finishes a whole phase (the mango grows and ripens),
 // or her last task (the mango graduates).
-export default function Celebration({ kind, stage, grew, finished, next, onContinue, onClose }) {
+export default function Celebration({ kind, stage, fromStage, grew, finished, next, onContinue, onClose }) {
   const buttonRef = useRef(null)
   const graduate = kind === 'graduate'
   const theme = next ?? finished
@@ -28,13 +28,18 @@ export default function Celebration({ kind, stage, grew, finished, next, onConti
           <p className="font-display text-xl font-extrabold text-[#8F5200]">Congratulations, Emily!</p>
         )}
         <div className="mx-auto mt-2 w-fit rounded-full p-4" style={{ background: theme.tint }}>
-          <div className="burst-dance">
-            <Mascot
-              stage={graduate ? 'month' : stage}
-              mood="cheer"
-              hat={graduate ? 'grad' : 'none'}
-              size={140}
-            />
+          {/* Mango grows from his old size to his new one */}
+          <div
+            className={grew ? 'grow-up' : ''}
+            style={{
+              '--from': mascotStages[fromStage ?? stage]?.scale ?? 1,
+              transform: `scale(${graduate ? 1 : mascotStages[stage]?.scale ?? 1})`,
+              transformOrigin: 'bottom center',
+            }}
+          >
+            <div className="burst-dance">
+              <Mascot stage={graduate ? 'month' : stage} mood="cheer" hat={graduate ? 'grad' : 'none'} size={150} />
+            </div>
           </div>
         </div>
         <h2 id="celebrate-title" className="mt-5 font-display text-3xl font-extrabold leading-tight text-ink">
@@ -45,7 +50,7 @@ export default function Celebration({ kind, stage, grew, finished, next, onConti
             ? 'You are a full-grown mango now, ripe and ready for everything BrightPath has in store.'
             : grew
               ? `Your mango is growing and ripening. Next up: ${next.name}. ${next.blurb}`
-              : `You're all caught up on ${finished.name}. Next up: ${next.name}.`}
+              : `Nice work. Your mango grows once every earlier section is done too. Next up: ${next.name}.`}
         </p>
         <button
           ref={buttonRef}

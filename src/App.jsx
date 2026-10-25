@@ -30,14 +30,12 @@ const cheers = [
   'Done and dusted. Your mango is proud of you.',
 ]
 
-// The mango grows with Emily's progress: its stage is the furthest phase
-// where she has finished at least one task.
+// The mango grows one size each time Emily fully completes a section:
+// small and green until Before Day 1 is done, bigger and yellow-green until
+// First Week is done, then fully ripe. Its stage is the first unfinished section.
 function stageFor(state) {
-  let stage = 'before'
-  phases.forEach((p) => {
-    if (tasks.some((t) => t.phase === p.id && state[t.id]?.status === 'done')) stage = p.id
-  })
-  return stage
+  const open = phases.find((p) => tasks.some((t) => t.phase === p.id && state[t.id]?.status !== 'done'))
+  return open ? open.id : 'month'
 }
 
 const countWord = (n) => ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'][n] ?? String(n)
@@ -163,7 +161,7 @@ export default function App() {
       const nextPhase = phaseById(upcoming.phase)
       const grew = stageFor(updated) !== stageFor(taskState)
       setTimeout(() => {
-        setCelebration({ kind: 'phase', finished: phase, next: nextPhase, grew })
+        setCelebration({ kind: 'phase', finished: phase, next: nextPhase, grew, fromStage: stageFor(taskState) })
         confetti({
           particleCount: 120,
           spread: 120,
@@ -322,6 +320,7 @@ export default function App() {
           kind={celebration.kind}
           stage={stage}
           grew={celebration.grew}
+          fromStage={celebration.fromStage}
           finished={celebration.finished}
           next={celebration.next}
           onContinue={continueAfterCelebration}

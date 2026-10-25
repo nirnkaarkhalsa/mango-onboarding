@@ -43,7 +43,7 @@ _What changed after clicking through v1 as Emily would._
 | 7 | The path showed order but not dates. | Added a **Calendar** tab: a month grid on desktop and a day-by-day list on phones. Same colors as the path, with overdue tasks outlined in red. |
 | 8 | "Questions? Sarah" named a person but gave no way to reach her. | Clicking the name shows a contact card with email, Slack, phone and where to find them, plus an **Email** button that fills in the task as the subject. |
 | 9 | Emily couldn't see what she was working toward. | A faded graduated Mango waits at the end of the path as a teaser, and comes into full color when she finishes. |
-| 10 | With the demo moved to Day 19, the mascot shrank back to small and green because the overdue "Start here" task was in Before Day 1. | Mango's size now follows the furthest phase where Emily has finished a task, so it reflects how far she has come. Finishing an overdue phase says "all caught up" instead of claiming the mango grew. |
+| 10 | With the demo on Day 19, the mascot needed a clear rule for when it grows. | Mango grows one size only when Emily fully completes a section: small and green until Before Day 1 is done, bigger and yellow-green until First Week is done, then fully ripe, then graduated. On Day 19 he starts small because the handbook is still open, so the demo shows him grow twice and graduate in a few clicks. |
 | 11 | The First Week section bar looked more olive than yellow. | Shifted First Week to a yellower shade (rechecked for colorblind users) and brightened its section bar. |
 
 ## Not doing yet
