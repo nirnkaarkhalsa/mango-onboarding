@@ -15,8 +15,9 @@ import Celebration from './components/Celebration'
 import Mascot from './components/Mascot'
 import MascotBurst, { MOVES } from './components/MascotBurst'
 
-const TASKS_KEY = 'mango-onboarding:tasks:v1'
-const MAIL_KEY = 'mango-onboarding:mail:v1'
+// Bump the version when the sample data changes, so old saved progress doesn't mix with new data.
+const TASKS_KEY = 'mango-onboarding:tasks:v2'
+const MAIL_KEY = 'mango-onboarding:mail:v2'
 
 const initialTaskState = Object.fromEntries(tasks.map((t) => [t.id, { status: t.status, completedAt: t.completedAt ?? null }]))
 const initialRead = messages.filter((m) => m.read).map((m) => m.id)
@@ -28,6 +29,18 @@ const cheers = [
   'Look at you go. {left} left, and no rush.',
   'Done and dusted. Your mango is proud of you.',
 ]
+
+// The mango grows with Emily's progress: its stage is the furthest phase
+// where she has finished at least one task.
+function stageFor(state) {
+  let stage = 'before'
+  phases.forEach((p) => {
+    if (tasks.some((t) => t.phase === p.id && state[t.id]?.status === 'done')) stage = p.id
+  })
+  return stage
+}
+
+const countWord = (n) => ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'][n] ?? String(n)
 
 function fill(template, vars) {
   return template.replace(/\{(\w+)\}/g, (_, k) => vars[k])
@@ -59,14 +72,16 @@ export default function App() {
   const unread = messages.filter((m) => !readIds.includes(m.id)).length
   const dayNumber = daysBetween(newHire.startDate, DEMO_TODAY) + 1
   const graduated = !next
-  // The mango's stage follows the phase Emily is working in.
-  const stage = next ? next.phase : 'month'
+  const stage = graduated ? 'month' : stageFor(taskState)
 
+  const hello = `Happy ${formatDate(DEMO_TODAY, { weekday: 'long' })}, Emily! It is Day ${dayNumber}.`
   const defaultMessage = !next
     ? 'You graduated, Emily! Every onboarding task is done.'
-    : next && isOverdue(next, taskState[next.id]?.status)
-      ? `Morning, Emily! It is Day ${dayNumber}. One thing slipped through before your start date. Let's knock it out first.`
-      : `Morning, Emily! It is Day ${dayNumber}. Here is the one thing to focus on.`
+    : isOverdue(next, taskState[next.id]?.status)
+      ? overdue.length === 1
+        ? `${hello} One task slipped through the cracks. Let's knock it out first.`
+        : `${hello} ${countWord(overdue.length)} tasks slipped through the cracks. Let's knock them out, starting with this one.`
+      : `${hello} Here is the one thing to focus on.`
 
   const openTask = useCallback(
     (id) => {
@@ -102,7 +117,6 @@ export default function App() {
     if (!done) return
 
     const phase = phaseById(task.phase)
-    const phaseIndex = phases.indexOf(phase)
     const phaseDone = tasks.filter((t) => t.phase === phase.id).every((t) => updated[t.id].status === 'done')
     const total = tasks.length
     const nowDone = tasks.filter((t) => updated[t.id].status === 'done').length
@@ -142,11 +156,14 @@ export default function App() {
         )
       }, 350)
     } else if (phaseDone) {
-      // Finished a phase: the mango grows and ripens. The task stays open
-      // underneath so "Start <next phase>" can jump straight to the next task.
-      const nextPhase = phases[phaseIndex + 1]
+      // Finished a phase. The task stays open underneath so "Start <next phase>"
+      // can jump straight to the next task. If the mango grew, say so; if Emily
+      // was catching up on an earlier phase, say that instead.
+      const upcoming = nextTask(tasks, updated)
+      const nextPhase = phaseById(upcoming.phase)
+      const grew = stageFor(updated) !== stageFor(taskState)
       setTimeout(() => {
-        setCelebration({ kind: 'phase', finished: phase, next: nextPhase })
+        setCelebration({ kind: 'phase', finished: phase, next: nextPhase, grew })
         confetti({
           particleCount: 120,
           spread: 120,
@@ -303,6 +320,8 @@ export default function App() {
       {celebration && (
         <Celebration
           kind={celebration.kind}
+          stage={stage}
+          grew={celebration.grew}
           finished={celebration.finished}
           next={celebration.next}
           onContinue={continueAfterCelebration}

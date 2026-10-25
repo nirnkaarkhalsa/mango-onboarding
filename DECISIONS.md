@@ -20,7 +20,7 @@ _What the brief didn't say, and what we assumed instead._
 | 2 | How is onboarding broken up? | Three phases: **Before Day 1**, **First Week**, **First Month**. | Matches Sarah's request ("before their first day... first few weeks"). |
 | 3 | What counts as a "task"? | Things the new hire must *do*: forms, documents to review, trainings, meetings, setup steps. | Messages from HR or a manager are information, not tasks, so they live in a separate Mail tab. |
 | 4 | How do tasks differ by department? | Each task is tagged **Company-wide** or **Engineering**. | Shows David's point (engineers need dev tools) without building a manager view. |
-| 5 | What day is it in the demo? | Emily is on **Day 3** (Wed, Nov 4, 2026). Start date was Mon, Nov 2. | Shows every state at once: one phase nearly done, one in progress, one upcoming. |
+| 5 | What day is it in the demo? | Emily is on **Day 19** (Fri, Nov 20, 2026). She started Mon, Nov 2. One task is overdue in Before Day 1 (the handbook) and one in First Week (security training). Two First Month tasks are still coming up. | Shows every state at once, and lets the demo show catching up on overdue work, finishing phases and graduating in a few clicks. |
 | 6 | When is a task "in progress"? | As soon as Emily opens it. Checking **Yes** marks it complete. | Simplest rule that still tells her what she's started. |
 | 7 | Must tasks be done in order? | No. Future tasks are dimmed but can still be opened. | Unlike lessons in a game, real onboarding tasks often overlap. |
 | 8 | How does Emily know what to do first? | The path highlights one **"Start here"** task: the earliest-due task that isn't done. | Directly answers Emily: "I just want to know what I should focus on first." |
@@ -43,6 +43,8 @@ _What changed after clicking through v1 as Emily would._
 | 7 | The path showed order but not dates. | Added a **Calendar** tab: a month grid on desktop and a day-by-day list on phones. Same colors as the path, with overdue tasks outlined in red. |
 | 8 | "Questions? Sarah" named a person but gave no way to reach her. | Clicking the name shows a contact card with email, Slack, phone and where to find them, plus an **Email** button that fills in the task as the subject. |
 | 9 | Emily couldn't see what she was working toward. | A faded graduated Mango waits at the end of the path as a teaser, and comes into full color when she finishes. |
+| 10 | With the demo moved to Day 19, the mascot shrank back to small and green because the overdue "Start here" task was in Before Day 1. | Mango's size now follows the furthest phase where Emily has finished a task, so it reflects how far she has come. Finishing an overdue phase says "all caught up" instead of claiming the mango grew. |
+| 11 | The First Week section bar looked more olive than yellow. | Shifted First Week to a yellower shade (rechecked for colorblind users) and brightened its section bar. |
 
 ## Not doing yet
 

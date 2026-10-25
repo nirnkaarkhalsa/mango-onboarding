@@ -3,7 +3,7 @@ import Mascot from './Mascot'
 
 // Shown when Emily finishes a whole phase (the mango grows and ripens),
 // or her last task (the mango graduates).
-export default function Celebration({ kind, finished, next, onContinue, onClose }) {
+export default function Celebration({ kind, stage, grew, finished, next, onContinue, onClose }) {
   const buttonRef = useRef(null)
   const graduate = kind === 'graduate'
   const theme = next ?? finished
@@ -30,7 +30,7 @@ export default function Celebration({ kind, finished, next, onContinue, onClose 
         <div className="mx-auto mt-2 w-fit rounded-full p-4" style={{ background: theme.tint }}>
           <div className="burst-dance">
             <Mascot
-              stage={graduate ? 'month' : next.id}
+              stage={graduate ? 'month' : stage}
               mood="cheer"
               hat={graduate ? 'grad' : 'none'}
               size={140}
@@ -43,9 +43,9 @@ export default function Celebration({ kind, finished, next, onContinue, onClose 
         <p className="mx-auto mt-2 max-w-xs text-ink-soft">
           {graduate
             ? 'You are a full-grown mango now, ripe and ready for everything BrightPath has in store.'
-            : next.id === 'week'
-              ? `Your mango is growing and starting to ripen. Next up: ${next.name}. ${next.blurb}`
-              : `Your mango is almost fully ripe. Next up: ${next.name}. ${next.blurb}`}
+            : grew
+              ? `Your mango is growing and ripening. Next up: ${next.name}. ${next.blurb}`
+              : `You're all caught up on ${finished.name}. Next up: ${next.name}.`}
         </p>
         <button
           ref={buttonRef}

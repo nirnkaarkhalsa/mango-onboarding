@@ -1,8 +1,10 @@
 // Sample data for the prototype. In a real product this would come from the
 // HR system, with plans generated from templates for each department.
 
-// The demo is frozen on Emily's third day so every state is visible at once.
-export const DEMO_TODAY = '2026-11-04'
+// The demo is frozen on Emily's Day 19 (Fri, Nov 20) so every state is visible:
+// one overdue task in each of the first two phases, most of the first month
+// done, and two tasks still coming up.
+export const DEMO_TODAY = '2026-11-20'
 
 export const newHire = {
   firstName: 'Emily',
@@ -35,12 +37,12 @@ export const phases = [
     id: 'week',
     name: 'First Week',
     blurb: 'Get set up, meet your team and find your way around.',
-    color: '#B8B91C',
+    color: '#C4B81A',
     on: '#1F3A2A',
     deep: '#5F6B00',
-    tint: '#F0F0C2',
-    light: '#E2E36A',
-    banner: '#B8B91C',
+    tint: '#F4F0C0',
+    light: '#E9DF6C',
+    banner: '#D6C421',
     onBanner: '#1F3A2A',
   },
   {
@@ -218,7 +220,8 @@ export const tasks = [
     due: '2026-11-04',
     minutes: 15,
     owner: 'manager',
-    status: 'in_progress',
+    status: 'done',
+    completedAt: '2026-11-04',
     summary:
       'Engineers need access to code, cloud and monitoring tools. Approvals can take a day, so request them early.',
     steps: [
@@ -241,7 +244,7 @@ export const tasks = [
     due: '2026-11-05',
     minutes: 30,
     owner: 'it',
-    status: 'todo',
+    status: 'in_progress',
     summary: 'A short course on spotting phishing, handling customer data and keeping your devices safe.',
     steps: ['Start the course below.', 'Finish the five short modules.', 'Pass the quiz at the end.'],
     resources: [{ label: 'Security awareness course', kind: 'Course' }],
@@ -255,7 +258,8 @@ export const tasks = [
     due: '2026-11-06',
     minutes: 90,
     owner: 'manager',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-06',
     summary: 'Get the main app running on your laptop. Your buddy can pair with you if you get stuck.',
     steps: [
       'Make sure your GitHub access is approved first.',
@@ -274,7 +278,8 @@ export const tasks = [
     due: '2026-11-06',
     minutes: 30,
     owner: 'manager',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-06',
     summary: 'Talk with your manager about expectations, how you like to work, and goals for your first 90 days.',
     steps: ['Find the invite on your calendar.', 'Bring any questions from the handbook or your first week.'],
     resources: [{ label: 'Your first 90 days', kind: 'Guide' }],
@@ -290,7 +295,8 @@ export const tasks = [
     due: '2026-11-10',
     minutes: 45,
     owner: 'manager',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-10',
     summary: 'A tour of how BrightPath\'s systems fit together, written for new engineers.',
     steps: ['Read the overview.', 'Write down one thing that surprised you to share with your team.'],
     resources: [{ label: 'Architecture overview', kind: 'Document' }],
@@ -304,7 +310,8 @@ export const tasks = [
     due: '2026-11-13',
     minutes: 120,
     owner: 'manager',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-13',
     summary: 'Pick a small "good first issue" and take it all the way to production. It is about learning the process, not the size of the change.',
     steps: [
       'Pick an issue labeled "good first issue".',
@@ -322,7 +329,8 @@ export const tasks = [
     due: '2026-11-18',
     minutes: 60,
     owner: 'manager',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-18',
     summary: 'Sit in with the on-call engineer to see how the team responds when something breaks.',
     steps: ['Pick a shift from the schedule.', 'Join the on-call channel for that shift.'],
     resources: [{ label: 'On-call schedule', kind: 'Link' }],
@@ -336,7 +344,8 @@ export const tasks = [
     due: '2026-11-20',
     minutes: 60,
     owner: 'hr',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-19',
     summary: 'Required training for everyone at BrightPath.',
     steps: ['Start the course below.', 'Finish all modules in one sitting or across a few days.'],
     resources: [{ label: 'Harassment prevention course', kind: 'Course' }],
@@ -350,7 +359,8 @@ export const tasks = [
     due: '2026-11-30',
     minutes: 25,
     owner: 'hr',
-    status: 'todo',
+    status: 'done',
+    completedAt: '2026-11-16',
     summary: 'Choose your health, dental and vision plans. You have 30 days from your start date to enroll.',
     steps: [
       'Compare the plans in the benefits guide.',
@@ -429,12 +439,12 @@ export const messages = [
     id: 'm-handbook',
     from: 'Sarah',
     fromTitle: 'HR Manager',
-    date: '2026-11-04',
+    date: '2026-11-19',
     time: '9:02 am',
     subject: 'Quick reminder about the handbook',
     body: [
       'Hi Emily,',
-      'Hope your first few days are going well! The Employee Handbook was due before your start date. No stress, it only takes about 25 minutes.',
+      'Hope your third week is going well! Your Employee Handbook acknowledgment is still open. It was due before your start date, and it only takes about 25 minutes.',
       'Once you have read it, just mark the task complete on your path.',
       'Sarah',
     ],
@@ -445,15 +455,31 @@ export const messages = [
     id: 'm-hours',
     from: 'David',
     fromTitle: 'Engineering Manager',
-    date: '2026-11-03',
+    date: '2026-11-18',
     time: '4:45 pm',
     subject: 'Submit your hours by Friday',
     body: [
       'Hey Emily,',
-      'Quick one: please submit your hours for this week by Friday at 5 pm. Orientation and training count as regular hours.',
-      'Also, team lunch is Wednesday at noon. Glad you are here!',
+      'Quick one: please submit your hours for this week by Friday at 5 pm.',
+      'Also, great work on your first pull request. The whole team noticed!',
       'David',
     ],
+    read: false,
+  },
+  {
+    id: 'm-security',
+    from: 'IT Help Desk',
+    fromTitle: 'IT',
+    date: '2026-11-17',
+    time: '10:15 am',
+    subject: 'Security training is past due',
+    body: [
+      'Hi Emily,',
+      'Our records show your security awareness training (due Nov 5) is started but not finished. Everyone needs it done to keep access to customer data.',
+      'It takes about 30 minutes, and you can pick up where you left off.',
+      'IT Help Desk',
+    ],
+    relatedTask: 'security',
     read: false,
   },
   {

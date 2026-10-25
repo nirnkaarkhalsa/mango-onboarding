@@ -35,19 +35,18 @@ npm run dev
 
 Then open the address it prints, usually http://localhost:5173.
 
-To start the demo over, click **Reset demo** at the bottom of the page.
-
 ## Demo walkthrough
 
-1. The page opens on Emily's **Day 3** (Wednesday, Nov 4, 2026). One Before Day 1 task is overdue.
-2. Mango points to it: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
-3. Read the task details, then check **Task completed? Yes**.
-4. Before Day 1 is now complete. Mango grows and turns yellow-green. Click **Start First Week** to go straight to the next task.
-5. Check it off and click **Next task**. Mango pops into the corner to celebrate.
-6. In any task, click the name under **Questions?** to see how to reach that person.
-7. Open **Calendar** to see every task by due date.
-8. Open **Mail** to see Sarah's reminder and David's note about submitting hours.
-9. Open **Completed** to revisit any finished task.
+1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 15 of 19 tasks, and two are overdue.
+2. Mango points to the first one: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
+3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete.
+4. Click **Start First Week** to jump straight to the other overdue task, security training, and complete it.
+5. Click **Start First Month**, complete the 30-day check-in, and Mango pops into the corner to celebrate. Click **Next task**.
+6. Complete the last task and Mango graduates.
+7. In any task, click the name under **Questions?** to see how to reach that person.
+8. Open **Calendar** to see every task by due date, **Mail** for messages from Sarah, David and IT, and **Completed** to revisit finished tasks.
+
+Click **Reset demo** at the bottom to start over.
 
 ## What we guessed and what we left out
 
