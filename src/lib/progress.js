@@ -56,3 +56,11 @@ export function phaseStats(tasks, state) {
 export function phaseById(id) {
   return phases.find((p) => p.id === id)
 }
+
+// The mango grows one size each time a section is fully complete:
+// small and green until Before Day 1 is done, bigger and yellow-green until
+// First Week is done, then fully ripe. Its stage is the first unfinished section.
+export function stageFor(tasks, state) {
+  const open = phases.find((p) => tasks.some((t) => t.phase === p.id && state[t.id]?.status !== 'done'))
+  return open ? open.id : 'month'
+}

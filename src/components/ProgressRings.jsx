@@ -6,7 +6,7 @@ function polar(cx, cy, r, angle) {
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)]
 }
 
-function arcPath(cx, cy, r, start, end) {
+export function arcPath(cx, cy, r, start, end) {
   if (end - start <= 0.01) return null
   if (end - start >= 359.9) end = start + 359.9
   const [x1, y1] = polar(cx, cy, r, start)

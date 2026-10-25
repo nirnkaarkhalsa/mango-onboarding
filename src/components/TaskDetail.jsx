@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { AtSign, Calendar, ChevronDown, CircleCheck, Clock, ExternalLink, Hash, MapPin, Phone, User, X } from 'lucide-react'
-import { owners } from '../data/onboarding'
+import { AtSign, Calendar, ChevronDown, CircleAlert, CircleCheck, Clock, ExternalLink, Hash, MapPin, Phone, Send, User, X } from 'lucide-react'
 import { formatDate, formatMinutes, isOverdue, phaseById, relativeDue } from '../lib/progress'
 import { typeIcons } from './icons'
 
-export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDone, onOpenNext }) {
+// mode 'newhire': Emily's own task, with "Task completed?" and Next task.
+// mode 'team': Sarah or David viewing it. They can't check it off, but can
+// message the new hire about it.
+export default function TaskDetail({ task, entry, contact, nextTask, onClose, onToggleDone, onOpenNext, mode = 'newhire', hireName, onSendMessage }) {
   const phase = phaseById(task.phase)
-  const owner = owners[task.owner]
+  const owner = contact
+  const team = mode === 'team'
+  const [draft, setDraft] = useState('')
+  const [sent, setSent] = useState(false)
   const Icon = typeIcons[task.type]
   const done = entry?.status === 'done'
   const overdue = isOverdue(task, entry?.status)
@@ -52,7 +57,9 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
           </div>
 
           {/* "Task completed?" box in the corner. Once done, it becomes the way forward. */}
-          {done ? (
+          {team ? (
+            <StatusPill done={done} overdue={overdue} inProgress={entry?.status === 'in_progress'} phase={phase} />
+          ) : done ? (
             <div className="mt-4 flex flex-col items-stretch gap-1.5 sm:absolute sm:right-16 sm:top-6 sm:mt-0 sm:items-end">
               <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} />
               <span className="flex items-center justify-center gap-1.5 text-sm font-bold" style={{ color: phase.deep }}>
@@ -147,7 +154,7 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
 
           <p className="mt-5 max-w-prose text-base leading-relaxed text-ink">{task.summary}</p>
 
-          <h3 className="mt-6 font-display text-lg font-bold text-ink">What to do</h3>
+          {task.steps.length > 0 && <h3 className="mt-6 font-display text-lg font-bold text-ink">What to do</h3>}
           <ol className="mt-2 flex flex-col gap-2">
             {task.steps.map((step, i) => (
               <li key={i} className="flex gap-3">
@@ -193,7 +200,41 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
             </>
           )}
 
-          {done ? (
+          {team ? (
+            <div className="mt-8 rounded-2xl border-2 border-line p-4">
+              <label htmlFor="task-message" className="font-display text-lg font-bold text-ink">
+                Message {hireName} about this task
+              </label>
+              {sent ? (
+                <p className="mt-2 flex items-center gap-2 font-bold text-[#2B7539]" role="status">
+                  <CircleCheck size={18} strokeWidth={2.75} aria-hidden /> Sent. It's in {hireName}'s Mail, linked to this task.
+                </p>
+              ) : (
+                <>
+                  <textarea
+                    id="task-message"
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    rows={3}
+                    placeholder={`Hi ${hireName}, quick note about "${task.title}"...`}
+                    className="mt-2 w-full rounded-xl border-2 border-line bg-paper p-3 text-ink outline-none focus:border-[#3E9B4F]"
+                  />
+                  <button
+                    type="button"
+                    disabled={!draft.trim()}
+                    onClick={() => {
+                      onSendMessage(task, draft.trim())
+                      setSent(true)
+                    }}
+                    className="btn-chunky mt-2 flex items-center gap-2 rounded-xl px-4 py-2 font-display font-bold text-white disabled:opacity-40"
+                    style={{ background: phase.deep, '--btn-deep': '#1f3a2a' }}
+                  >
+                    <Send size={16} strokeWidth={2.75} aria-hidden /> Send message
+                  </button>
+                </>
+              )}
+            </div>
+          ) : done ? (
             <div className="mt-8 flex flex-col items-center gap-3">
               <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} wide />
               <button
@@ -217,6 +258,22 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
         </div>
       </div>
     </div>
+  )
+}
+
+function StatusPill({ done, overdue, inProgress, phase }) {
+  const look = done
+    ? { text: 'Completed', bg: phase.color, fg: phase.on, Icon: CircleCheck }
+    : overdue
+      ? { text: 'Overdue', bg: 'var(--color-alert)', fg: '#ffffff', Icon: CircleAlert }
+      : { text: inProgress ? 'In progress' : 'Not started', bg: '#ffffff', fg: 'var(--color-ink-soft)', Icon: Clock }
+  return (
+    <span
+      className="mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-extrabold sm:absolute sm:right-16 sm:top-7 sm:mt-0"
+      style={{ background: look.bg, color: look.fg }}
+    >
+      <look.Icon size={16} strokeWidth={2.75} aria-hidden /> {look.text}
+    </span>
   )
 }
 

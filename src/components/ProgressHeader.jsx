@@ -2,7 +2,9 @@ import { CircleAlert, CircleCheck } from 'lucide-react'
 import { PhaseRing, SegmentedRing } from './ProgressRings'
 import { formatDate } from '../lib/progress'
 
-export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, newHire }) {
+// Used on Emily's own path, and on Sarah's or David's view of a new hire
+// (pass heading/intro and onOverdueClick to change the wording and action).
+export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, newHire, heading, intro, onOverdueClick, overdueHint }) {
   const done = stats.reduce((s, x) => s + x.done, 0)
   const total = stats.reduce((s, x) => s + x.total, 0)
 
@@ -14,13 +16,17 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
       <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-8">
         <div className="lg:w-52 lg:shrink-0">
           <h1 className="font-display text-2xl font-bold leading-tight text-ink md:text-3xl">
-            Hi, {newHire.firstName}
+            {heading ?? `Hi, ${newHire.firstName}`}
           </h1>
           <p className="mt-1 text-ink-soft">
-            Day {dayNumber} of your onboarding.
-            <span className="hidden sm:inline">
-              {' '}You started {formatDate(newHire.startDate, { weekday: 'long', month: 'short', day: 'numeric' })}.
-            </span>
+            {intro ?? (
+              <>
+                Day {dayNumber} of your onboarding.
+                <span className="hidden sm:inline">
+                  {' '}You started {formatDate(newHire.startDate, { weekday: 'long', month: 'short', day: 'numeric' })}.
+                </span>
+              </>
+            )}
           </p>
         </div>
 
@@ -65,7 +71,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
             {overdue.length > 0 ? (
               <button
                 type="button"
-                onClick={() => onOpenTask(overdue[0].id)}
+                onClick={() => (onOverdueClick ? onOverdueClick() : onOpenTask(overdue[0].id))}
                 className="flex w-full items-center gap-3 rounded-2xl border-2 border-alert/25 bg-alert-tint px-4 py-3 text-left hover:border-alert/50"
               >
                 <span className="font-display text-4xl font-extrabold leading-none text-alert">{overdue.length}</span>
@@ -74,7 +80,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
                     <CircleAlert size={16} strokeWidth={2.75} aria-hidden />
                     {overdue.length === 1 ? 'Task needs attention' : 'Tasks need attention'}
                   </span>
-                  <span className="text-sm text-ink-soft">Past due. Open it to catch up.</span>
+                  <span className="text-sm text-ink-soft">{overdueHint ?? 'Past due. Open it to catch up.'}</span>
                 </span>
               </button>
             ) : (
@@ -85,7 +91,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
                     <CircleCheck size={16} strokeWidth={2.75} aria-hidden />
                     Nothing overdue
                   </span>
-                  <span className="text-sm text-ink-soft">You are right on track.</span>
+                  <span className="text-sm text-ink-soft">{onOverdueClick ? 'Right on track.' : 'You are right on track.'}</span>
                 </span>
               </div>
             )}

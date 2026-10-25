@@ -1,4 +1,4 @@
-import { Check, Clock, PartyPopper } from 'lucide-react'
+import { Check, Clock, PartyPopper, Plus } from 'lucide-react'
 import { phases } from '../data/onboarding'
 import Mascot from './Mascot'
 import { dueLabel, formatMinutes, isOverdue } from '../lib/progress'
@@ -6,7 +6,9 @@ import { typeIcons } from './icons'
 
 const ZIGZAG = [0, -1, -1.5, -1, 0, 1, 1.5, 1]
 
-export default function Path({ tasks, state, stats, currentId, flashId, onOpen }) {
+// mode 'team' (Sarah or David viewing a new hire) adds a ghost "+" stone at the
+// end of each section for adding tasks, and hides the graduation teaser.
+export default function Path({ tasks, state, stats, currentId, flashId, onOpen, mode = 'newhire', onAdd }) {
   let index = 0
   const doneAll = stats.reduce((n, x) => n + x.done, 0)
   const totalAll = stats.reduce((n, x) => n + x.total, 0)
@@ -60,15 +62,18 @@ export default function Path({ tasks, state, stats, currentId, flashId, onOpen }
                     flash={task.id === flashId}
                     off={off}
                     onOpen={onOpen}
+                    currentLabel={mode === 'team' ? 'Up next' : 'Start here'}
                   />
                 )
               })}
+              {mode === 'team' && onAdd && <AddStone phase={phase} off={ZIGZAG[index++ % ZIGZAG.length]} onAdd={onAdd} />}
             </ol>
           </section>
         )
       })}
 
       {/* The finish line: a ghost of the graduated mango, as a teaser of what Emily is working toward */}
+      {mode !== 'team' && (
       <section aria-label="Finish line" className="flex flex-col items-center pb-4 pt-2 text-center">
         <div className="mb-3 flex flex-col items-center gap-2" aria-hidden>
           {[0, 1, 2].map((i) => (
@@ -88,11 +93,42 @@ export default function Path({ tasks, state, stats, currentId, flashId, onOpen }
             : `Finish all ${totalAll} tasks and Mango graduates with you. ${totalAll - doneAll} to go.`}
         </p>
       </section>
+      )}
     </div>
   )
 }
 
-function PathStep({ task, phase, status, current, flash, off, onOpen }) {
+function AddStone({ phase, off, onAdd }) {
+  return (
+    <li className={`path-row ${off > 0 ? 'label-left' : ''}`} style={{ '--off': off }}>
+      <div className="stone-wrap relative flex justify-center">
+        <button
+          type="button"
+          onClick={() => onAdd(phase.id)}
+          className="stone"
+          style={{
+            '--stone-bg': '#ffffff',
+            '--stone-deep': `color-mix(in srgb, ${phase.color} 30%, #ffffff)`,
+            '--stone-fg': phase.deep,
+            borderColor: `color-mix(in srgb, ${phase.color} 55%, #ffffff)`,
+            borderStyle: 'dashed',
+          }}
+          aria-label={`Add a task to ${phase.name}`}
+        >
+          <Plus size={36} strokeWidth={3} aria-hidden />
+        </button>
+      </div>
+      <button type="button" onClick={() => onAdd(phase.id)} className="step-label rounded-xl text-left" tabIndex={-1} aria-hidden>
+        <div className="font-display text-lg font-bold leading-snug" style={{ color: phase.deep }}>
+          Add a task
+        </div>
+        <div className="step-meta text-sm text-ink-soft">to {phase.name}</div>
+      </button>
+    </li>
+  )
+}
+
+function PathStep({ task, phase, status, current, flash, off, onOpen, currentLabel = 'Start here' }) {
   const Icon = typeIcons[task.type]
   const done = status === 'done'
   const inProgress = status === 'in_progress'
@@ -123,7 +159,7 @@ function PathStep({ task, phase, status, current, flash, off, onOpen }) {
             style={{ color: phase.deep }}
             aria-hidden
           >
-            Start here
+            {currentLabel}
             <span className="absolute -bottom-[7px] left-1/2 size-3 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-white" />
           </span>
         )}
@@ -179,7 +215,12 @@ function PathStep({ task, phase, status, current, flash, off, onOpen }) {
               In progress
             </span>
           )}
-          {task.tag !== 'Company-wide' && (
+          {task.addedBy && (
+            <span className="rounded-full bg-[#FCE6C2] px-2 py-0.5 text-xs font-extrabold text-[#8F5200]">
+              Added by {task.addedBy}
+            </span>
+          )}
+          {task.tag !== 'Company-wide' && !task.addedBy && (
             <span className="rounded-full border border-line bg-white px-2 py-0.5 text-xs font-bold text-ink-soft">
               {task.tag}
             </span>

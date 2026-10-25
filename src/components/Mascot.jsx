@@ -40,6 +40,8 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
   const id = useId().replace(/:/g, '')
   const s = mascotStages[stage] ?? mascotStages.month
   const cheer = mood === 'cheer'
+  const study = mood === 'study'
+  const worried = mood === 'worried'
 
   return (
     <svg
@@ -75,6 +77,11 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
           <>
             <path d="M22 76 Q 8 62 12 44" />
             <path d="M98 76 Q 112 62 108 44" />
+          </>
+        ) : study ? (
+          <>
+            <path d="M20 86 Q 24 104 40 108" />
+            <path d="M100 86 Q 96 104 80 108" />
           </>
         ) : (
           <>
@@ -118,7 +125,17 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
       {/* eyes */}
       <ellipse cx="46" cy="72" rx="11" ry="13" fill="#ffffff" />
       <ellipse cx="74" cy="72" rx="11" ry="13" fill="#ffffff" />
-      {cheer ? (
+      {study ? (
+        <g>
+          <circle cx="47" cy="78" r="5.5" fill="#1f2a22" />
+          <circle cx="73" cy="78" r="5.5" fill="#1f2a22" />
+          <g stroke="#1f3a2a" strokeWidth="3" fill="none">
+            <circle cx="46" cy="73" r="13" />
+            <circle cx="74" cy="73" r="13" />
+            <path d="M59 72 Q 60 69 61 72" />
+          </g>
+        </g>
+      ) : cheer ? (
         <g stroke="#1f2a22" strokeWidth="4" strokeLinecap="round" fill="none">
           <path d="M39 74 Q 46 66 53 74" />
           <path d="M67 74 Q 74 66 81 74" />
@@ -132,18 +149,38 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
         </g>
       )}
 
+      {worried && (
+        <g stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none">
+          <path d="M35 58 L 52 53" />
+          <path d="M85 58 L 68 53" />
+        </g>
+      )}
+      {worried && <path d="M96 44 Q 102 54 96 58 Q 90 54 96 44 Z" fill="#8EC9F0" stroke="#4C8DBF" strokeWidth="1.5" />}
+
       {/* cheeks */}
       <ellipse cx="34" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
       <ellipse cx="86" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
 
       {/* mouth */}
-      {cheer ? (
+      {worried ? (
+        <path d="M50 99 Q 60 90 70 99" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+      ) : study ? (
+        <path d="M54 94 Q 60 96 66 94" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+      ) : cheer ? (
         <g>
           <path d="M47 90 Q 60 110 73 90 Z" fill="#7a2e1f" stroke="#1f2a22" strokeWidth="2.5" strokeLinejoin="round" />
           <path d="M53 99 Q 60 104 67 99 Q 60 96 53 99 Z" fill="#ff7a6b" />
         </g>
       ) : (
         <path d="M50 92 Q 60 101 70 92" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+      )}
+
+      {study && (
+        <g>
+          <rect x="36" y="100" width="48" height="26" rx="3" fill="#2B7539" stroke="#1f3a2a" strokeWidth="2.5" />
+          <path d="M60 101 L 60 125" stroke="#1f3a2a" strokeWidth="2" />
+          <path d="M42 107 L 54 107 M 42 113 L 54 113 M 66 107 L 78 107 M 66 113 L 78 113" stroke="#D9EED8" strokeWidth="2" strokeLinecap="round" />
+        </g>
       )}
 
       {hat === 'party' && (

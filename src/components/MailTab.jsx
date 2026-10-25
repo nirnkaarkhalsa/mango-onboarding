@@ -3,7 +3,7 @@ import { ArrowLeft, Inbox } from 'lucide-react'
 import { formatDate } from '../lib/progress'
 
 const avatarColors = {
-  Sarah: { bg: '#FBEBC2', fg: '#8F6200' },
+  Sarah: { bg: '#FCE6C2', fg: '#8F5200' },
   David: { bg: '#D9EED8', fg: '#2B7539' },
   'IT Help Desk': { bg: '#E6EBE3', fg: '#4F6656' },
 }
@@ -35,7 +35,7 @@ export default function MailTab({ messages, readIds, onRead, tasksById, onOpenTa
       <h1 id="mail-title" className="font-display text-3xl font-bold text-ink">
         Mail
       </h1>
-      <p className="mt-1 text-ink-soft">Updates from Sarah in HR, David and IT. Nothing here is a task.</p>
+      <p className="mt-1 text-ink-soft">Updates from Sarah in HR, your manager and IT. Nothing here is a task.</p>
 
       <div className="mt-5 grid gap-4 md:grid-cols-[minmax(0,20rem)_1fr]">
         <ul className={`flex flex-col gap-2 ${open ? 'hidden md:flex' : ''}`}>
@@ -90,7 +90,9 @@ export default function MailTab({ messages, readIds, onRead, tasksById, onOpenTa
               <h2 className="mt-5 font-display text-2xl font-bold leading-tight text-ink">{open.subject}</h2>
               <div className="mt-3 flex max-w-prose flex-col gap-3 leading-relaxed text-ink">
                 {open.body.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p key={i} className="whitespace-pre-line">
+                    {p}
+                  </p>
                 ))}
               </div>
               {open.relatedTask && tasksById[open.relatedTask] && (
