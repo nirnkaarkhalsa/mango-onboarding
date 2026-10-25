@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Calendar, CircleCheck, Clock, ExternalLink, User, X } from 'lucide-react'
+import { AtSign, Calendar, ChevronDown, CircleCheck, Clock, ExternalLink, Hash, MapPin, Phone, User, X } from 'lucide-react'
 import { owners } from '../data/onboarding'
 import { formatDate, formatMinutes, isOverdue, phaseById, relativeDue } from '../lib/progress'
 import { typeIcons } from './icons'
@@ -12,6 +12,7 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
   const overdue = isOverdue(task, entry?.status)
   const closeRef = useRef(null)
   const [note, setNote] = useState(null)
+  const [showContact, setShowContact] = useState(false)
 
   useEffect(() => {
     closeRef.current?.focus()
@@ -95,10 +96,54 @@ export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDon
               {formatMinutes(task.minutes)}
             </Meta>
             <Meta icon={User} label="Questions?">
-              {owner.name}
-              <span className="block text-ink-soft">{owner.title}</span>
+              <button
+                type="button"
+                onClick={() => setShowContact((v) => !v)}
+                aria-expanded={showContact}
+                aria-controls="contact-card"
+                className="flex items-center gap-1 font-bold underline decoration-2 underline-offset-2"
+                style={{ textDecorationColor: phase.color }}
+              >
+                {owner.name}
+                <ChevronDown size={16} strokeWidth={2.75} className={`transition-transform ${showContact ? 'rotate-180' : ''}`} aria-hidden />
+              </button>
+              <span className="block font-normal text-ink-soft">{owner.title}</span>
             </Meta>
           </dl>
+
+          {showContact && (
+            <div id="contact-card" className="pop-enter mt-3 rounded-2xl border-2 p-4" style={{ borderColor: phase.tint }}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="grid size-11 place-items-center rounded-full font-display text-lg font-bold"
+                    style={{ background: phase.tint, color: phase.deep }}
+                    aria-hidden
+                  >
+                    {owner.name === 'IT Help Desk' ? 'IT' : owner.name[0]}
+                  </span>
+                  <div className="leading-tight">
+                    <div className="font-extrabold text-ink">{owner.name}</div>
+                    <div className="text-sm text-ink-soft">{owner.title}</div>
+                  </div>
+                </div>
+                <a
+                  href={`mailto:${owner.email}?subject=${encodeURIComponent(`Question about: ${task.title}`)}`}
+                  className="btn-chunky rounded-xl px-4 py-2 font-display font-bold text-white"
+                  style={{ background: phase.deep, '--btn-deep': '#1f3a2a' }}
+                >
+                  Email {owner.name === 'IT Help Desk' ? 'IT' : owner.name}
+                </a>
+              </div>
+              <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                <ContactRow icon={AtSign} label="Email">{owner.email}</ContactRow>
+                <ContactRow icon={Hash} label="Slack">{owner.slack}</ContactRow>
+                <ContactRow icon={Phone} label="Phone">{owner.phone}</ContactRow>
+                <ContactRow icon={MapPin} label="Find them">{owner.where}</ContactRow>
+              </ul>
+              <p className="mt-3 text-sm text-ink-soft">{owner.hours}.</p>
+            </div>
+          )}
 
           <p className="mt-5 max-w-prose text-base leading-relaxed text-ink">{task.summary}</p>
 
@@ -200,6 +245,16 @@ function NextButton({ nextTask, onOpenNext, onClose, wide }) {
       <span className={`block leading-tight ${wide ? 'text-xl' : 'text-lg'}`}>Next task</span>
       {wide && <span className="block text-sm font-semibold opacity-90">{nextTask.title}</span>}
     </button>
+  )
+}
+
+function ContactRow({ icon: Icon, label, children }) {
+  return (
+    <li className="flex items-center gap-2.5 rounded-xl bg-paper px-3 py-2">
+      <Icon size={16} className="shrink-0 text-ink-soft" aria-hidden />
+      <span className="sr-only">{label}: </span>
+      <span className="truncate font-bold text-ink">{children}</span>
+    </li>
   )
 }
 

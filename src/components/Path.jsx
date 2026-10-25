@@ -1,5 +1,6 @@
 import { Check, Clock, PartyPopper } from 'lucide-react'
 import { phases } from '../data/onboarding'
+import Mascot from './Mascot'
 import { dueLabel, formatMinutes, isOverdue } from '../lib/progress'
 import { typeIcons } from './icons'
 
@@ -7,6 +8,9 @@ const ZIGZAG = [0, -1, -1.5, -1, 0, 1, 1.5, 1]
 
 export default function Path({ tasks, state, stats, currentId, flashId, onOpen }) {
   let index = 0
+  const doneAll = stats.reduce((n, x) => n + x.done, 0)
+  const totalAll = stats.reduce((n, x) => n + x.total, 0)
+  const graduated = doneAll === totalAll
 
   return (
     <div className="flex flex-col gap-10">
@@ -63,6 +67,27 @@ export default function Path({ tasks, state, stats, currentId, flashId, onOpen }
           </section>
         )
       })}
+
+      {/* The finish line: a ghost of the graduated mango, as a teaser of what Emily is working toward */}
+      <section aria-label="Finish line" className="flex flex-col items-center pb-4 pt-2 text-center">
+        <div className="mb-3 flex flex-col items-center gap-2" aria-hidden>
+          {[0, 1, 2].map((i) => (
+            <span key={i} className="size-2.5 rounded-full bg-stone-deep" />
+          ))}
+        </div>
+        <div
+          className="transition-[opacity,filter] duration-700"
+          style={{ opacity: graduated ? 1 : 0.32, filter: graduated ? 'none' : 'saturate(0.6)' }}
+        >
+          <Mascot stage="month" hat="grad" mood={graduated ? 'cheer' : 'happy'} size={150} />
+        </div>
+        <h2 className="mt-2 font-display text-2xl font-bold text-ink">{graduated ? 'You graduated!' : 'Your finish line'}</h2>
+        <p className="mt-1 max-w-md text-ink-soft">
+          {graduated
+            ? 'Every task is done. Mango is fully grown, and so are you.'
+            : `Finish all ${totalAll} tasks and Mango graduates with you. ${totalAll - doneAll} to go.`}
+        </p>
+      </section>
     </div>
   )
 }
@@ -74,10 +99,18 @@ function PathStep({ task, phase, status, current, flash, off, onOpen }) {
   const overdue = isOverdue(task, status)
   const upcoming = !done && !current && !inProgress
 
+  // Done tasks are full color. Everything else is a light "ghost" of its
+  // phase color, so finished work visibly fills in as Emily goes.
+  const ghost = {
+    bg: phase.tint,
+    deep: `color-mix(in srgb, ${phase.color} 38%, ${phase.tint})`,
+    fg: `color-mix(in srgb, ${phase.color} 60%, transparent)`,
+  }
   let look
-  if (done || current) look = { bg: phase.color, deep: phase.deep, fg: phase.on }
-  else if (inProgress) look = { bg: phase.tint, deep: phase.color, fg: phase.deep }
-  else look = { bg: 'var(--color-stone)', deep: 'var(--color-stone-deep)', fg: 'var(--color-stone-icon)' }
+  if (done) look = { bg: phase.color, deep: phase.deep, fg: phase.on, border: 'transparent' }
+  else if (current) look = { ...ghost, fg: phase.deep, border: phase.color, borderStyle: 'solid' }
+  else if (inProgress) look = { ...ghost, fg: phase.deep, border: phase.color, borderStyle: 'dashed' }
+  else look = { ...ghost, border: 'transparent' }
 
   const statusText = done ? 'Done' : overdue ? 'Overdue' : inProgress ? 'In progress' : current ? 'Up next' : 'Coming up'
 
@@ -99,7 +132,14 @@ function PathStep({ task, phase, status, current, flash, off, onOpen }) {
           id={`stone-${task.id}`}
           onClick={() => onOpen(task.id)}
           className={`stone ${current ? 'is-current' : ''} ${flash ? 'stone-flash' : ''}`}
-          style={{ '--stone-bg': look.bg, '--stone-deep': look.deep, '--stone-fg': look.fg, '--ring': phase.tint }}
+          style={{
+            '--stone-bg': look.bg,
+            '--stone-deep': look.deep,
+            '--stone-fg': look.fg,
+            '--ring': `color-mix(in srgb, ${phase.color} 40%, transparent)`,
+            borderColor: look.border,
+            borderStyle: look.borderStyle ?? 'solid',
+          }}
           aria-label={`${task.title}. ${statusText}. ${dueLabel(task, status)}. About ${formatMinutes(task.minutes)}.`}
         >
           {done ? <Check size={36} strokeWidth={3.5} aria-hidden /> : <Icon size={30} strokeWidth={2.5} aria-hidden />}

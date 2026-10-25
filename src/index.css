@@ -93,6 +93,7 @@ body {
   box-shadow: 0 6px 0 var(--stone-deep);
   background: var(--stone-bg);
   color: var(--stone-fg);
+  border-width: 3px;
   transition: transform 90ms ease, box-shadow 90ms ease;
 }
 .stone:hover {

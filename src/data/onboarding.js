@@ -392,10 +392,35 @@ export const tasks = [
   },
 ]
 
+// Who to ask about each task. Contact details are made up for the prototype.
 export const owners = {
-  hr: { name: 'Sarah', title: 'HR Manager' },
-  manager: { name: 'David', title: 'Engineering Manager' },
-  it: { name: 'IT Help Desk', title: 'IT' },
+  hr: {
+    name: 'Sarah',
+    title: 'HR Manager',
+    email: 'sarah@brightpath.example',
+    slack: '@sarah-hr',
+    phone: '(206) 555-0142',
+    where: 'People team, 2nd floor',
+    hours: 'Usually replies within a few hours, Mon to Fri',
+  },
+  manager: {
+    name: 'David',
+    title: 'Engineering Manager',
+    email: 'david@brightpath.example',
+    slack: '@david',
+    phone: '(206) 555-0178',
+    where: 'Engineering, 3rd floor',
+    hours: 'Usually replies within the hour',
+  },
+  it: {
+    name: 'IT Help Desk',
+    title: 'IT',
+    email: 'helpdesk@brightpath.example',
+    slack: '#it-help',
+    phone: '(206) 555-0110',
+    where: 'Next to the kitchen, 1st floor',
+    hours: 'Open 7 am to 7 pm, Mon to Fri',
+  },
 }
 
 // Mail is information, not tasks. Some messages point to a related task.

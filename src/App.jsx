@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import confetti from 'canvas-confetti'
-import { CircleCheck, Mail, Map as MapIcon, RotateCcw } from 'lucide-react'
+import { CalendarDays, CircleCheck, Mail, Map as MapIcon, RotateCcw } from 'lucide-react'
 import { DEMO_TODAY, messages, newHire, phases, tasks } from './data/onboarding'
 import { usePersistentState } from './lib/usePersistentState'
 import { daysBetween, formatDate, isOverdue, nextTask, phaseById, phaseStats } from './lib/progress'
@@ -10,6 +10,7 @@ import Path from './components/Path'
 import TaskDetail from './components/TaskDetail'
 import MailTab from './components/MailTab'
 import CompletedTab from './components/CompletedTab'
+import CalendarTab from './components/CalendarTab'
 import Celebration from './components/Celebration'
 import Mascot from './components/Mascot'
 import MascotBurst, { MOVES } from './components/MascotBurst'
@@ -185,6 +186,7 @@ export default function App() {
 
   const navItems = [
     { id: 'path', label: 'My path', icon: MapIcon },
+    { id: 'calendar', label: 'Calendar', icon: CalendarDays },
     { id: 'mail', label: 'Mail', icon: Mail, badge: unread },
     { id: 'done', label: 'Completed', icon: CircleCheck, count: doneCount },
   ]
@@ -254,6 +256,8 @@ export default function App() {
             </div>
           </div>
         )}
+
+        {tab === 'calendar' && <CalendarTab tasks={tasks} state={taskState} onOpen={openTask} />}
 
         {tab === 'mail' && (
           <MailTab messages={messages} readIds={readIds} onRead={markRead} tasksById={tasksById} onOpenTask={openTask} />

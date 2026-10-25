@@ -14,9 +14,11 @@ New hires see one place with everything they need to do, broken into **Before Da
 
 - **Shows one next step.** A "Start here" stone and Mango's speech bubble point to the earliest-due task that isn't done. Overdue tasks come first. **Show me where** scrolls to it on the path.
 - **Keeps everything in one place.** Forms, documents, trainings, meetings and setup steps live on the path. Messages from HR and managers live separately in **Mail**, because they are information, not tasks.
+- **Shows the plan by date.** The **Calendar** tab puts every task on the day it's due.
 - **Tracks progress at a glance.** A ring for overall progress, one ring per phase, and an overdue count that only turns red when something needs attention.
-- **Opens each task in full.** Due date, time it takes, who to ask, step-by-step instructions and links, plus a **Task completed? Yes** box that turns into a **Next task** button once checked.
+- **Opens each task in full.** Due date, time it takes, who to ask (click the name for their contact details), step-by-step instructions and links, plus a **Task completed? Yes** box that turns into a **Next task** button once checked.
 - **Celebrates progress.** Confetti and a quick Mango dance, backflip or party for each task. Finishing a phase grows Mango from small and green to fully ripe. Finishing everything shows Mango graduating.
+- **Fills in as you go.** Unfinished tasks are a light ghost of their phase color and fill in when done. A faded graduated Mango waits at the end of the path.
 - **Keeps red for problems.** Phases are green, yellow-green and golden orange, so red only ever means overdue.
 - **Remembers progress.** Completed tasks stay completed after a refresh. The **Completed** tab lists them so Emily can reopen anything later.
 
@@ -42,8 +44,10 @@ To start the demo over, click **Reset demo** at the bottom of the page.
 3. Read the task details, then check **Task completed? Yes**.
 4. Before Day 1 is now complete. Mango grows and turns yellow-green. Click **Start First Week** to go straight to the next task.
 5. Check it off and click **Next task**. Mango pops into the corner to celebrate.
-6. Open **Mail** to see Sarah's reminder and David's note about submitting hours.
-7. Open **Completed** to revisit any finished task.
+6. In any task, click the name under **Questions?** to see how to reach that person.
+7. Open **Calendar** to see every task by due date.
+8. Open **Mail** to see Sarah's reminder and David's note about submitting hours.
+9. Open **Completed** to revisit any finished task.
 
 ## What we guessed and what we left out
 
