@@ -6,9 +6,9 @@ sections of the demo.
 
 ## Who it's for
 
-- **Primary user:** Emily, a new hire. This prototype is her onboarding portal.
-- **Customer:** Sarah, HR Manager at BrightPath. She asked for this and is the person the demo is for.
-- **Also considered:** David, Engineering Manager, whose need for department-specific checklists shapes the task data.
+- **Primary user:** Emily, a new hire. Her onboarding path was built first.
+- **Customer:** Sarah, HR Manager at BrightPath. She asked for this, and now has her own view of everyone onboarding.
+- **Also served:** David, Engineering Manager. He gets the same view as Sarah, showing only his team, which covers "managers should be able to see how their new employees are progressing."
 
 ## Assumptions
 
@@ -16,10 +16,10 @@ _What the brief didn't say, and what we assumed instead._
 
 | # | Question | What we assumed | Why |
 |---|----------|-----------------|-----|
-| 1 | Which new hire do we show? | One new hire: Emily, a software engineer on David's team. | One complete, believable journey beats several thin ones in a 3-hour prototype. |
+| 1 | Which new hire do we show? | Emily, a software engineer on David's team, is the fully worked example. Twelve more sample new hires fill out Sarah's and David's views. | One complete, believable journey for the new hire, plus enough people for the HR view to mean something. |
 | 2 | How is onboarding broken up? | Three phases: **Before Day 1**, **First Week**, **First Month**. | Matches Sarah's request ("before their first day... first few weeks"). |
 | 3 | What counts as a "task"? | Things the new hire must *do*: forms, documents to review, trainings, meetings, setup steps. | Messages from HR or a manager are information, not tasks, so they live in a separate Mail tab. |
-| 4 | How do tasks differ by department? | Each task is tagged **Company-wide** or **Engineering**. | Shows David's point (engineers need dev tools) without building a manager view. |
+| 4 | How do tasks differ by department? | Each department has a template: company-wide tasks plus its own. Templates exist for Engineering, Marketing, Sales, Legal and Business Operations, plus "Other" for company-wide only. | Answers David ("I don't want everyone following exactly the same checklist") and is the first step toward Sarah's "automatically create plans based on role or department." |
 | 5 | What day is it in the demo? | Emily is on **Day 19** (Fri, Nov 20, 2026). She started Mon, Nov 2. One task is overdue in Before Day 1 (the handbook) and one in First Week (security training). Two First Month tasks are still coming up. | Shows every state at once, and lets the demo show catching up on overdue work, finishing phases and graduating in a few clicks. |
 | 6 | When is a task "in progress"? | As soon as Emily opens it. Checking **Yes** marks it complete. | Simplest rule that still tells her what she's started. |
 | 7 | Must tasks be done in order? | No. Future tasks are dimmed but can still be opened. | Unlike lessons in a game, real onboarding tasks often overlap. |
@@ -27,6 +27,13 @@ _What the brief didn't say, and what we assumed instead._
 | 9 | Where does task data come from? | Made-up sample tasks, messages and links stored in the app. Progress saves in the browser. | No HR system or real content is available for the prototype. |
 | 10 | Branding | Original mango mascot and an orange-and-green palette inspired by MangoApps. | Makes onboarding feel encouraging, like a game, rather than a chore. |
 | 11 | Contact details | Made-up emails on the reserved `brightpath.example` domain, and phone numbers in the fictional 555 range. | Realistic for the demo without pointing at real people. |
+| 12 | How does the prototype show different people? | A **View as** menu on the profile picture switches between Emily, Sarah and David. | There is no real login, and switching views live makes the demo easy to follow. |
+| 13 | What do Sarah's three categories mean? | **Completed**: every task done. **On time**: still working, nothing overdue. **Has an overdue task**: at least one task past its due date. | Matches Sarah's ask to see whether new hires have completed their tasks or not. |
+| 14 | Who appears in Sarah's list? | Everyone with an active onboarding plan, including people who start soon and people who finished within their first month. Sorted by first name. | The brief only gives first names. |
+| 15 | Can Sarah or David check off a new hire's tasks? | No. They can view, add tasks and send messages. Only the new hire marks tasks done. | Keeps the new hire's checklist honest and their own. |
+| 16 | What mood is the overdue mascot? | Worried, not angry. | Sarah may share her screen, and the tone should stay supportive. |
+| 17 | When is an added task due? | By default, the end of the section it's added to, but never sooner than three days from today. The form warns if a past date is picked. | A task added on Day 19 to First Week shouldn't show as overdue the moment it's created. |
+| 18 | What happens when Sarah publishes a new plan? | The new hire appears in her list and David's (if he's the manager), and a welcome message is added to their mail. No real email is sent. | Shows the full loop without needing real email. |
 
 ## Changes after the first test
 
@@ -46,15 +53,27 @@ _What changed after clicking through v1 as Emily would._
 | 10 | With the demo on Day 19, the mascot needed a clear rule for when it grows. | Mango grows one size only when Emily fully completes a section: small and green until Before Day 1 is done, bigger and yellow-green until First Week is done, then fully ripe, then graduated. On Day 19 he starts small because the handbook is still open, so the demo shows him grow twice and graduate in a few clicks. |
 | 11 | The First Week section bar looked more olive than yellow. | Shifted First Week to a yellower shade (rechecked for colorblind users) and brightened its section bar. |
 
+## Added in v1.1: Sarah's and David's views
+
+_Built after the new hire's path, once it felt solid._
+
+- **Dashboard:** one pie chart (Completed, On time, Has an overdue task) and three mangos: happy with a graduation cap, studious with glasses and a book, and worried. Clicking a slice or a mango filters the list below and shows the count in big print.
+- **List of new hires:** alphabetical by first name, with search, how long each person has been at the company, progress and status.
+- **A new hire's page:** the same rings and path the new hire sees. A ghost **+** stone at the end of each section adds a task, and it appears on their path right away.
+- **Messaging:** message a new hire about a specific task, send a general note, or click their overdue count for a pre-filled reminder listing the overdue tasks.
+- **Mail:** send updates to everyone onboarding, one department, or chosen people, and see what has been sent.
+- **Add new hire:** pick a department to load its template, remove or add tasks, choose the manager, then publish.
+- **David's view:** the same dashboard and mail, limited to his team. He can't add new hires.
+
 ## Not doing yet
 
-_What we deliberately left out of v1, and why._
+_What we deliberately left out, and why._
 
-| # | Feature | Why it's out of v1 | When it might come in |
-|---|---------|--------------------|-----------------------|
-| 1 | Manager view (David sees his new hires' progress) | Focus v1 on the new hire, Sarah's "especially our new employees." | v2: the next most important user. |
-| 2 | HR view (Sarah creates and edits plans) | Needs plan editing, which is a bigger build. | v2 or v3. |
-| 3 | Auto-generated plans by role or department | Sarah said "eventually." Tagged task data is the groundwork for it. | Later: templates per department, or an AI-drafted plan from a job description. |
-| 4 | More than one new hire | One complete journey is a better demo than several partial ones. | With the manager view. |
-| 5 | Celebration GIFs | Animated mascot and confetti first; GIFs after feedback. | After the first review with Sarah. |
-| 6 | Real login, email and HR system integrations | Not needed to test whether the experience works for new hires. | Before any real rollout. |
+| # | Feature | Why it's out | When it might come in |
+|---|---------|--------------|-----------------------|
+| 1 | Editing or removing tasks on a plan that's already published | Adding covers the most common need. Editing raises questions like whether to notify the new hire. | Next, after feedback from Sarah. |
+| 2 | AI-drafted plans from a job description | Department templates come first. A drafted plan still needs Sarah to review it. | Later, built on the templates. |
+| 3 | Replies and conversations in Mail | One-way updates cover reminders and announcements. | When Mail moves to the real messaging system. |
+| 4 | Celebration GIFs | Animated mascot and confetti first; GIFs after feedback. | After the first review with Sarah. |
+| 5 | Trends over time (for example, average days to finish onboarding) | Needs real history to be meaningful. | Once real data exists. |
+| 6 | Real login, email and HR system integrations | Not needed to test whether the experience works. | Before any real rollout. |

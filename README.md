@@ -1,16 +1,16 @@
 # BrightPath Onboarding
 
-A first-version onboarding portal for new hires at BrightPath Technologies, built as a prototype to show Sarah (HR Manager).
+A first-version onboarding portal for BrightPath Technologies, built as a prototype to show Sarah (HR Manager). It has three views: the new hire's path, Sarah's HR view of everyone onboarding, and a manager's view of their team. Switch between them from the profile menu in the top corner.
 
 New hires see one place with everything they need to do, broken into **Before Day 1**, **First Week** and **First Month**. Instead of a long checklist, tasks sit on a game-style path that highlights the one thing to focus on next. Mango, the mascot, grows and ripens alongside the new hire and graduates when onboarding is done.
 
 ## Who it's for
 
 - **Emily, a new hire.** This prototype is her view. She asked for one thing above all: "I just want to know what I should focus on first."
-- **Sarah, HR Manager.** She asked for this and is the audience for the demo.
-- **David, Engineering Manager.** His point that every department needs different steps shows up in the task data: each task is tagged Company-wide or Engineering.
+- **Sarah, HR Manager.** She asked for this. Her view shows who's done, who's on time and who needs a nudge, and lets her add tasks, send messages and build plans for new hires.
+- **David, Engineering Manager.** He sees the same view, showing only his team. His point that every department needs different steps shows up in the department templates.
 
-## What it does
+## What the new hire sees
 
 - **Shows one next step.** A "Start here" stone and Mango's speech bubble point to the earliest-due task that isn't done. Overdue tasks come first. **Show me where** scrolls to it on the path.
 - **Keeps everything in one place.** Forms, documents, trainings, meetings and setup steps live on the path. Messages from HR and managers live separately in **Mail**, because they are information, not tasks.
@@ -21,6 +21,17 @@ New hires see one place with everything they need to do, broken into **Before Da
 - **Fills in as you go.** Unfinished tasks are a light ghost of their phase color and fill in when done. A faded graduated Mango waits at the end of the path.
 - **Keeps red for problems.** Phases are green, yellow-green and golden orange, so red only ever means overdue.
 - **Remembers progress.** Completed tasks stay completed after a refresh. The **Completed** tab lists them so Emily can reopen anything later.
+
+## What Sarah sees
+
+- **Who needs attention, at a glance.** One pie chart and three mangos: Completed (graduated mango), On time (studious mango) and Has an overdue task (worried mango). Click any of them to filter the list.
+- **Everyone onboarding.** An alphabetical list with search, how long each person has been here, their progress and status.
+- **A new hire's page.** Their rings and path, exactly as they see it. A **+** stone at the end of each section adds a task to their path.
+- **Messages that land in the new hire's Mail.** About a specific task, a general note, or a pre-filled reminder from their overdue count.
+- **Mail.** Updates to everyone, a department, or chosen people.
+- **Add new hire.** Pick a department to load its template, adjust it, choose the manager and publish.
+
+David, as a manager, gets the same dashboard and mail for his team only.
 
 ## Run it locally
 
@@ -46,6 +57,14 @@ Then open the address it prints, usually http://localhost:5173.
 7. In any task, click the name under **Questions?** to see how to reach that person.
 8. Open **Calendar** to see every task by due date, **Mail** for messages from Sarah, David and IT, and **Completed** to revisit finished tasks.
 
+Then the HR side:
+
+9. Open the profile menu in the top corner and choose **Sarah**.
+10. Click the worried mango to see the five people with overdue tasks, then open **Emily**.
+11. Click her overdue count to send a pre-filled reminder, and use a **+** stone to add a task to her First Week.
+12. Open **Add new hire**, pick a department, adjust the template and publish.
+13. Switch to **David** to see only his team, or back to **Emily** to see Sarah's reminder and the new task.
+
 Click **Reset demo** at the bottom to start over.
 
 ## What we guessed and what we left out
@@ -54,7 +73,7 @@ Every assumption and every cut is logged in [DECISIONS.md](DECISIONS.md).
 
 Highlights:
 - **Guessed:** the three phases, what counts as a task versus a message, and that tasks can be opened in any order.
-- **Left out of v1:** the manager view, Sarah's HR view for editing plans, auto-generated plans by role, real login and integrations.
+- **Left out:** editing published plans, AI-drafted plans, replies in Mail, real login and integrations.
 
 ## How it's built
 
