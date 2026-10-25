@@ -5,7 +5,7 @@ import { typeIcons } from './icons'
 
 const ZIGZAG = [0, -1, -1.5, -1, 0, 1, 1.5, 1]
 
-export default function Path({ tasks, state, stats, currentId, onOpen }) {
+export default function Path({ tasks, state, stats, currentId, flashId, onOpen }) {
   let index = 0
 
   return (
@@ -18,25 +18,25 @@ export default function Path({ tasks, state, stats, currentId, onOpen }) {
         return (
           <section key={phase.id} aria-labelledby={`phase-${phase.id}`}>
             <header
-              className="flex items-center gap-4 rounded-3xl px-5 py-4 text-white md:px-6"
-              style={{ background: phase.deep }}
+              className="flex items-center gap-4 rounded-3xl px-5 py-4 md:px-6"
+              style={{ background: phase.banner, color: phase.onBanner }}
             >
               <div className="flex-1">
-                <div className="text-sm font-bold opacity-90">
+                <div className="text-sm font-bold opacity-85">
                   Section {p + 1} of {phases.length}
                 </div>
                 <h2 id={`phase-${phase.id}`} className="font-display text-2xl font-bold leading-tight">
                   {phase.name}
                 </h2>
-                <p className="text-sm opacity-90">{phase.blurb}</p>
+                <p className="text-sm font-semibold opacity-85">{phase.blurb}</p>
               </div>
               <div className="shrink-0 text-right">
                 {complete ? (
-                  <span className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-extrabold">
+                  <span className="flex items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 text-sm font-extrabold">
                     <PartyPopper size={16} aria-hidden /> Complete
                   </span>
                 ) : (
-                  <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-extrabold">
+                  <span className="rounded-full bg-white/25 px-3 py-1 text-sm font-extrabold">
                     {done} of {total} done
                   </span>
                 )}
@@ -53,6 +53,7 @@ export default function Path({ tasks, state, stats, currentId, onOpen }) {
                     phase={phase}
                     status={state[task.id]?.status}
                     current={task.id === currentId}
+                    flash={task.id === flashId}
                     off={off}
                     onOpen={onOpen}
                   />
@@ -66,7 +67,7 @@ export default function Path({ tasks, state, stats, currentId, onOpen }) {
   )
 }
 
-function PathStep({ task, phase, status, current, off, onOpen }) {
+function PathStep({ task, phase, status, current, flash, off, onOpen }) {
   const Icon = typeIcons[task.type]
   const done = status === 'done'
   const inProgress = status === 'in_progress'
@@ -74,7 +75,7 @@ function PathStep({ task, phase, status, current, off, onOpen }) {
   const upcoming = !done && !current && !inProgress
 
   let look
-  if (done || current) look = { bg: phase.color, deep: phase.deep, fg: '#ffffff' }
+  if (done || current) look = { bg: phase.color, deep: phase.deep, fg: phase.on }
   else if (inProgress) look = { bg: phase.tint, deep: phase.color, fg: phase.deep }
   else look = { bg: 'var(--color-stone)', deep: 'var(--color-stone-deep)', fg: 'var(--color-stone-icon)' }
 
@@ -95,8 +96,9 @@ function PathStep({ task, phase, status, current, off, onOpen }) {
         )}
         <button
           type="button"
+          id={`stone-${task.id}`}
           onClick={() => onOpen(task.id)}
-          className={`stone ${current ? 'is-current' : ''}`}
+          className={`stone ${current ? 'is-current' : ''} ${flash ? 'stone-flash' : ''}`}
           style={{ '--stone-bg': look.bg, '--stone-deep': look.deep, '--stone-fg': look.fg, '--ring': phase.tint }}
           aria-label={`${task.title}. ${statusText}. ${dueLabel(task, status)}. About ${formatMinutes(task.minutes)}.`}
         >

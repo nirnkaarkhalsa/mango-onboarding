@@ -13,34 +13,47 @@ export const newHire = {
   hr: { name: 'Sarah', title: 'HR Manager' },
 }
 
-// Each phase is a stage of the mango ripening: green, then gold, then orange.
+// Each phase is a stage of the mango ripening: green, then yellow-green,
+// then golden orange. Red is reserved for "overdue", so no phase looks red.
+// color: chart and stone fill. on: icon/text on that fill.
+// deep: text on white and button fills (all 5:1+ contrast).
+// banner / onBanner: section header fill and its text.
 export const phases = [
   {
     id: 'before',
     name: 'Before Day 1',
     blurb: 'Paperwork and prep, so your first day is about people.',
     color: '#3E9B4F',
+    on: '#FFFFFF',
     deep: '#2B7539',
     tint: '#D9EED8',
     light: '#8FD28F',
+    banner: '#2B7539',
+    onBanner: '#FFFFFF',
   },
   {
     id: 'week',
     name: 'First Week',
     blurb: 'Get set up, meet your team and find your way around.',
-    color: '#E8A317',
-    deep: '#8F6200',
-    tint: '#FBEBC2',
-    light: '#FFD36B',
+    color: '#B8B91C',
+    on: '#1F3A2A',
+    deep: '#5F6B00',
+    tint: '#F0F0C2',
+    light: '#E2E36A',
+    banner: '#B8B91C',
+    onBanner: '#1F3A2A',
   },
   {
     id: 'month',
     name: 'First Month',
     blurb: 'Settle in, learn the systems and ship your first change.',
-    color: '#E8590C',
-    deep: '#B8430A',
-    tint: '#FCDCC9',
-    light: '#FFA063',
+    color: '#DE7C00',
+    on: '#1F3A2A',
+    deep: '#8F5200',
+    tint: '#FCE6C2',
+    light: '#FFC266',
+    banner: '#DE7C00',
+    onBanner: '#1F3A2A',
   },
 ]
 

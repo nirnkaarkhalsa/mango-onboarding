@@ -2,7 +2,7 @@
 
 A first-version onboarding portal for new hires at BrightPath Technologies, built as a prototype to show Sarah (HR Manager).
 
-New hires see one place with everything they need to do, broken into **Before Day 1**, **First Week** and **First Month**. Instead of a long checklist, tasks sit on a game-style path that highlights the one thing to focus on next, and Mango, the mascot, cheers each step.
+New hires see one place with everything they need to do, broken into **Before Day 1**, **First Week** and **First Month**. Instead of a long checklist, tasks sit on a game-style path that highlights the one thing to focus on next. Mango, the mascot, grows and ripens alongside the new hire and graduates when onboarding is done.
 
 ## Who it's for
 
@@ -12,11 +12,12 @@ New hires see one place with everything they need to do, broken into **Before Da
 
 ## What it does
 
-- **Shows one next step.** A "Start here" stone and Mango's speech bubble point to the earliest-due task that isn't done. Overdue tasks come first.
+- **Shows one next step.** A "Start here" stone and Mango's speech bubble point to the earliest-due task that isn't done. Overdue tasks come first. **Show me where** scrolls to it on the path.
 - **Keeps everything in one place.** Forms, documents, trainings, meetings and setup steps live on the path. Messages from HR and managers live separately in **Mail**, because they are information, not tasks.
 - **Tracks progress at a glance.** A ring for overall progress, one ring per phase, and an overdue count that only turns red when something needs attention.
-- **Opens each task in full.** Due date, time it takes, who to ask, step-by-step instructions and links, plus a **Task completed? Yes** box.
-- **Celebrates progress.** Confetti for each task. Finishing a phase unlocks the next one, and Mango "ripens" from green to gold to orange.
+- **Opens each task in full.** Due date, time it takes, who to ask, step-by-step instructions and links, plus a **Task completed? Yes** box that turns into a **Next task** button once checked.
+- **Celebrates progress.** Confetti and a quick Mango dance, backflip or party for each task. Finishing a phase grows Mango from small and green to fully ripe. Finishing everything shows Mango graduating.
+- **Keeps red for problems.** Phases are green, yellow-green and golden orange, so red only ever means overdue.
 - **Remembers progress.** Completed tasks stay completed after a refresh. The **Completed** tab lists them so Emily can reopen anything later.
 
 ## Run it locally
@@ -37,11 +38,12 @@ To start the demo over, click **Reset demo** at the bottom of the page.
 ## Demo walkthrough
 
 1. The page opens on Emily's **Day 3** (Wednesday, Nov 4, 2026). One Before Day 1 task is overdue.
-2. Mango points to it: **Read the Employee Handbook**. Click **Start task**.
+2. Mango points to it: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
 3. Read the task details, then check **Task completed? Yes**.
-4. Before Day 1 is now complete. Mango celebrates and turns gold for First Week.
-5. Open **Mail** to see Sarah's reminder and David's note about submitting hours.
-6. Open **Completed** to revisit any finished task.
+4. Before Day 1 is now complete. Mango grows and turns yellow-green. Click **Start First Week** to go straight to the next task.
+5. Check it off and click **Next task**. Mango pops into the corner to celebrate.
+6. Open **Mail** to see Sarah's reminder and David's note about submitting hours.
+7. Open **Completed** to revisit any finished task.
 
 ## What we guessed and what we left out
 

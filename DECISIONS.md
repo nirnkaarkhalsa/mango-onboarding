@@ -27,6 +27,18 @@ _What the brief didn't say, and what we assumed instead._
 | 9 | Where does task data come from? | Made-up sample tasks, messages and links stored in the app. Progress saves in the browser. | No HR system or real content is available for the prototype. |
 | 10 | Branding | Original mango mascot and an orange-and-green palette inspired by MangoApps. | Makes onboarding feel encouraging, like a game, rather than a chore. |
 
+## Changes after the first test
+
+_What changed after clicking through v1 as Emily would._
+
+| # | What we noticed | What we changed |
+|---|-----------------|-----------------|
+| 1 | The First Month color was a red-orange, so those tasks looked overdue. | Red is now reserved for "overdue." First Week is yellow-green and First Month is golden orange. The three phase colors were checked so they stay distinguishable for colorblind users. |
+| 2 | The mascot didn't change as Emily progressed. | Mango now grows and ripens with her: small and green before Day 1, bigger and yellow-green in the first week, fully ripe in the first month. Finishing the last task shows a graduation pop-up with Mango in a cap. |
+| 3 | "Up next" jumped straight into the task, so Emily never saw where she was on her path. | "Show me where" scrolls to her current stone and makes it flash. She can open the task from there. |
+| 4 | Confetti alone got repetitive. | After each task, Mango pops into the corner and dances, does a backflip or throws a party, chosen at random. |
+| 5 | Getting from one task to the next took several clicks. | Completing a task turns the "Task completed?" box into a **Next task** button. Finishing a phase leads straight into the next phase's first task. |
+
 ## Not doing yet
 
 _What we deliberately left out of v1, and why._

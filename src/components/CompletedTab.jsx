@@ -38,8 +38,8 @@ export default function CompletedTab({ tasks, state, onOpen, onGoToPath }) {
                   className="flex w-full items-center gap-4 rounded-2xl border-2 border-line bg-white p-3 text-left hover:border-stone-deep"
                 >
                   <span
-                    className="grid size-11 shrink-0 place-items-center rounded-full text-white"
-                    style={{ background: phase.color, boxShadow: `0 3px 0 ${phase.deep}` }}
+                    className="grid size-11 shrink-0 place-items-center rounded-full"
+                    style={{ background: phase.color, color: phase.on, boxShadow: `0 3px 0 ${phase.deep}` }}
                     aria-hidden
                   >
                     <Check size={22} strokeWidth={3.5} />

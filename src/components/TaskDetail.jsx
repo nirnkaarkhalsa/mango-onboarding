@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Calendar, Clock, ExternalLink, User, X } from 'lucide-react'
+import { Calendar, CircleCheck, Clock, ExternalLink, User, X } from 'lucide-react'
 import { owners } from '../data/onboarding'
 import { formatDate, formatMinutes, isOverdue, phaseById, relativeDue } from '../lib/progress'
 import { typeIcons } from './icons'
 
-export default function TaskDetail({ task, entry, onClose, onToggleDone }) {
+export default function TaskDetail({ task, entry, nextTask, onClose, onToggleDone, onOpenNext }) {
   const phase = phaseById(task.phase)
   const owner = owners[task.owner]
   const Icon = typeIcons[task.type]
@@ -33,8 +33,8 @@ export default function TaskDetail({ task, entry, onClose, onToggleDone }) {
         <div className="relative px-6 pb-5 pt-6" style={{ background: phase.tint }}>
           <div className="flex items-start gap-4">
             <div
-              className="grid size-14 shrink-0 place-items-center rounded-2xl text-white"
-              style={{ background: phase.color, boxShadow: `0 4px 0 ${phase.deep}` }}
+              className="grid size-14 shrink-0 place-items-center rounded-2xl"
+              style={{ background: phase.color, color: phase.on, boxShadow: `0 4px 0 ${phase.deep}` }}
             >
               <Icon size={28} strokeWidth={2.5} aria-hidden />
             </div>
@@ -50,23 +50,27 @@ export default function TaskDetail({ task, entry, onClose, onToggleDone }) {
             </div>
           </div>
 
-          {/* "Task completed?" box, in the corner as specced */}
-          <label
-            className={`mt-4 flex cursor-pointer items-center gap-3 rounded-2xl border-2 bg-white px-4 py-2.5 sm:absolute sm:right-16 sm:top-6 sm:mt-0 ${
-              done ? 'border-transparent' : 'border-line'
-            }`}
-            style={done ? { boxShadow: `0 0 0 3px ${phase.color}` } : undefined}
-          >
-            <span className="text-sm font-extrabold text-ink">Task completed?</span>
-            <input
-              type="checkbox"
-              checked={done}
-              onChange={(e) => onToggleDone(task.id, e.target.checked)}
-              className="size-6 cursor-pointer rounded-md"
-              style={{ accentColor: phase.deep }}
-            />
-            <span className="text-sm font-bold text-ink-soft">Yes</span>
-          </label>
+          {/* "Task completed?" box in the corner. Once done, it becomes the way forward. */}
+          {done ? (
+            <div className="mt-4 flex flex-col items-stretch gap-1.5 sm:absolute sm:right-16 sm:top-6 sm:mt-0 sm:items-end">
+              <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} />
+              <span className="flex items-center justify-center gap-1.5 text-sm font-bold" style={{ color: phase.deep }}>
+                <CircleCheck size={16} strokeWidth={2.75} aria-hidden /> Completed
+              </span>
+            </div>
+          ) : (
+            <label className="mt-4 flex cursor-pointer items-center gap-3 rounded-2xl border-2 border-line bg-white px-4 py-2.5 sm:absolute sm:right-16 sm:top-6 sm:mt-0">
+              <span className="text-sm font-extrabold text-ink">Task completed?</span>
+              <input
+                type="checkbox"
+                checked={false}
+                onChange={(e) => onToggleDone(task.id, e.target.checked)}
+                className="size-6 cursor-pointer rounded-md"
+                style={{ accentColor: phase.deep }}
+              />
+              <span className="text-sm font-bold text-ink-soft">Yes</span>
+            </label>
+          )}
 
           <button
             ref={closeRef}
@@ -144,7 +148,18 @@ export default function TaskDetail({ task, entry, onClose, onToggleDone }) {
             </>
           )}
 
-          {!done && (
+          {done ? (
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <NextButton nextTask={nextTask} onOpenNext={onOpenNext} onClose={onClose} wide />
+              <button
+                type="button"
+                onClick={() => onToggleDone(task.id, false)}
+                className="text-sm font-bold text-ink-soft underline-offset-2 hover:underline"
+              >
+                Not done yet? Undo
+              </button>
+            </div>
+          ) : (
             <button
               type="button"
               onClick={() => onToggleDone(task.id, true)}
@@ -157,6 +172,34 @@ export default function TaskDetail({ task, entry, onClose, onToggleDone }) {
         </div>
       </div>
     </div>
+  )
+}
+
+function NextButton({ nextTask, onOpenNext, onClose, wide }) {
+  const next = nextTask ? phaseById(nextTask.phase) : null
+  if (!nextTask) {
+    return (
+      <button
+        type="button"
+        onClick={onClose}
+        className={`btn-chunky rounded-2xl bg-[#2B7539] px-5 py-2.5 font-display text-lg font-bold text-white ${wide ? 'w-full py-3 text-xl' : ''}`}
+        style={{ '--btn-deep': '#1f3a2a' }}
+      >
+        Back to my path
+      </button>
+    )
+  }
+  return (
+    <button
+      type="button"
+      onClick={() => onOpenNext(nextTask.id)}
+      className={`btn-chunky rounded-2xl px-5 font-display font-bold text-white ${wide ? 'w-full py-3 text-center' : 'py-2.5 text-left'}`}
+      style={{ background: next.deep, '--btn-deep': '#1f3a2a' }}
+      aria-label={`Next task: ${nextTask.title}`}
+    >
+      <span className={`block leading-tight ${wide ? 'text-xl' : 'text-lg'}`}>Next task</span>
+      {wide && <span className="block text-sm font-semibold opacity-90">{nextTask.title}</span>}
+    </button>
   )
 }
 
