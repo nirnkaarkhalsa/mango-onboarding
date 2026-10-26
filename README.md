@@ -35,7 +35,7 @@ New hires see one place with everything they need to do, broken into **Before Da
 - **Mail.** Updates to everyone, a department, or chosen people.
 - **Add new hire.** Pick a department to load its template, adjust it, choose the manager and publish.
 
-David, as a manager, gets the same dashboard and mail for his team only, plus a **Team history** tab: on-time results for the 14 engineers who onboarded on his team since January 2025, the tasks most often finished late, and a table of every past engineer.
+David, as a manager, gets the same dashboard and mail for his team only.
 
 ## Run it locally
 
@@ -68,7 +68,7 @@ Then the HR side:
 11. Click her overdue count to send a pre-filled reminder, and use a **+** stone to add a task to her First Week.
 12. Open **Add new hire**, pick a department, adjust the template and publish.
 13. On Emily's page, click **2 overdue** next to her name to jump to each unfinished task.
-14. Switch to **David** to see only his team, then open **Team history**. Or switch back to **Emily** to see Sarah's reminder and the new task.
+14. Switch to **David** to see only his team, or back to **Emily** to see Sarah's reminder and the new task.
 
 Click **Reset demo** at the bottom to start over.
 
@@ -83,7 +83,7 @@ Highlights:
 ## How it's built
 
 - [React](https://react.dev) and [Vite](https://vite.dev) for the app, [Tailwind CSS](https://tailwindcss.com) for styling.
-- Sample data lives in [`src/data/onboarding.js`](src/data/onboarding.js) (Emily), [`src/data/roster.js`](src/data/roster.js) (everyone onboarding, managers and department templates) and [`src/data/history.js`](src/data/history.js) (David's past engineers). Progress is saved in the browser with `localStorage`.
+- Sample data lives in [`src/data/onboarding.js`](src/data/onboarding.js) (Emily) and [`src/data/roster.js`](src/data/roster.js) (everyone onboarding, managers and department templates). Progress is saved in the browser with `localStorage`.
 - No backend, accounts or API keys, so it runs anywhere.
 - The mascot is an original SVG character drawn for this prototype.
 

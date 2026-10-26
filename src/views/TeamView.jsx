@@ -6,7 +6,6 @@ import TeamDashboard from './TeamDashboard'
 import HireDetail from './HireDetail'
 import CreateHire, { defaultDueFor } from './CreateHire'
 import TeamMail from './TeamMail'
-import TeamHistory from './TeamHistory'
 import TaskDetail from '../components/TaskDetail'
 import AddTaskModal from '../components/AddTaskModal'
 import ComposeModal from '../components/ComposeModal'
@@ -85,8 +84,6 @@ export default function TeamView({ viewer, store, tab, goTo, openHireId, setOpen
           }}
         />
       )}
-
-      {tab === 'history' && <TeamHistory hires={hires} store={store} />}
 
       {tab === 'mail' && <TeamMail viewer={viewer} hires={hires} messages={store.messages} onSend={actions.sendMessage} />}
 

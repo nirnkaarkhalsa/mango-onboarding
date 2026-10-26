@@ -35,8 +35,6 @@ _What the brief didn't say, and what we assumed instead._
 | 17 | When is an added task due? | By default, the end of the section it's added to, but never sooner than three days from today. The form warns if a past date is picked. | A task added on Day 19 to First Week shouldn't show as overdue the moment it's created. |
 | 18 | What happens when Sarah publishes a new plan? | The new hire appears in her list and David's (if he's the manager), and a welcome message is added to their mail. No real email is sent. | Shows the full loop without needing real email. |
 | 19 | Customer name | Kept **BrightPath Technologies**, because the brief names the customer. The mango mascot is the nod to MangoApps. | Building for the customer named in the request is part of the exercise. |
-| 20 | Where does Team history come from? | 14 sample engineers who finished onboarding on David's team since January 2025, each with the same 19-task plan. "On time" means finished by the due date. | No real history exists. The sample tells a plausible story (on-time rate rising, security training the most common slip) to show what the tab is for. |
-| 21 | Who sees Team history? | Only David, as an engineering manager. | It was asked for David. Sarah could get a company-wide version later. |
 
 ## Changes after the first test
 
@@ -80,7 +78,6 @@ _Changes after a fresh look the next day._
 
 - **Nerdier On time mango:** oversized thick-rimmed glasses and magnified eyes.
 - **Jump to what's overdue:** on a new hire's page in Sarah's or David's view, clicking the overdue count next to their name scrolls to the unfinished task and flashes it. With several, each click moves to the next.
-- **David's Team history tab:** on-time rate by the quarter engineers started, the tasks most often finished late, average days to finish, and a table of every past engineer. A "What stands out" note ties it to today: security training was late for 11 of 14 past engineers and is overdue right now for Emily and Carlos, with a suggested fix.
 
 ## Not doing yet
 
@@ -92,6 +89,5 @@ _What we deliberately left out, and why._
 | 2 | AI-drafted plans from a job description | Department templates come first. A drafted plan still needs Sarah to review it. | Later, built on the templates. |
 | 3 | Replies and conversations in Mail | One-way updates cover reminders and announcements. | When Mail moves to the real messaging system. |
 | 4 | Celebration GIFs | Animated mascot and confetti first; GIFs after feedback. | After the first review with Sarah. |
-| 5 | Trends over time (for example, average days to finish onboarding) | Needs real history to be meaningful. | Once real data exists. |
-| 6 | Real login, email and HR system integrations | Not needed to test whether the experience works. | Before any real rollout. |
-| 7 | Company-wide history for Sarah | David's team history comes first to test whether the data is useful. | After feedback from David. |
+| 5 | Real login, email and HR system integrations | Not needed to test whether the experience works. | Before any real rollout. |
+| 6 | Onboarding history and trends (for example, a manager's past hires and their on-time rate) | Tried as a tab for David, then cut to keep the demo focused on what Sarah asked for. It also needs real history to be meaningful. | Once real data exists. |

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { CalendarDays, ChartColumn, CircleCheck, Mail, Map as MapIcon, RotateCcw, Send, UserPlus, Users } from 'lucide-react'
+import { CalendarDays, CircleCheck, Mail, Map as MapIcon, RotateCcw, Send, UserPlus, Users } from 'lucide-react'
 import { DEMO_TODAY } from './data/onboarding'
 import { buildSeed, viewers } from './data/roster'
 import { usePersistentState } from './lib/usePersistentState'
@@ -139,7 +139,6 @@ export default function App() {
           ]
         : [
             { id: 'people', label: 'My team', icon: Users },
-            { id: 'history', label: 'Team history', icon: ChartColumn },
             { id: 'mail', label: 'Mail', icon: Send },
           ]
 
