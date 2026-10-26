@@ -147,13 +147,18 @@ export default function App() {
     <div className="min-h-screen pb-24 md:pb-10">
       <header className="sticky top-0 z-30 border-b-2 border-line bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 md:px-6">
-          <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => goTo(firstTab[viewerId])}
+            className="flex items-center gap-2 rounded-xl px-1 py-1 text-left hover:bg-paper"
+            aria-label="BrightPath Onboarding home"
+          >
             <Mascot stage={stage} hat={viewerId === 'emily' && graduated ? 'grad' : 'none'} size={34} />
             <div className="leading-none">
               <div className="font-display text-xl font-extrabold text-ink">BrightPath</div>
               <div className="text-xs font-bold text-ink-soft">{viewerId === 'emily' ? 'Onboarding' : viewerId === 'sarah' ? 'Onboarding for HR' : 'Onboarding for managers'}</div>
             </div>
-          </div>
+          </button>
 
           <nav aria-label="Main" className="ml-6 hidden gap-1 md:flex">
             {navItems.map((item) => (
