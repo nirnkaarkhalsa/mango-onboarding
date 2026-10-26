@@ -165,8 +165,18 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
       {worried && <path d="M96 44 Q 102 54 96 58 Q 90 54 96 44 Z" fill="#8EC9F0" stroke="#4C8DBF" strokeWidth="1.5" />}
 
       {/* cheeks */}
-      <ellipse cx="34" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
-      <ellipse cx="86" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
+      {worried ? (
+        // a little rosier when worried
+        <>
+          <ellipse cx="34" cy="92" rx="7" ry="4.5" fill="#FF5444" opacity="0.62" />
+          <ellipse cx="86" cy="92" rx="7" ry="4.5" fill="#FF5444" opacity="0.62" />
+        </>
+      ) : (
+        <>
+          <ellipse cx="34" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
+          <ellipse cx="86" cy="92" rx="6.5" ry="4" fill="#ff7a6b" opacity="0.5" />
+        </>
+      )}
 
       {/* mouth */}
       {worried ? (
