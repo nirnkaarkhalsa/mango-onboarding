@@ -27,7 +27,7 @@ New hires see one place with everything they need to do, broken into **Before Da
 
 ## What Sarah sees
 
-- **Who needs attention, at a glance.** One pie chart and three mangos: Completed (graduated mango), On time (nerdy mango in taped-up glasses) and Has an overdue task (worried mango). Click any of them to filter the list.
+- **Who needs attention, at a glance.** One pie chart and three mangos: Completed (graduated mango), On time (nerdy mango in big glasses) and Has an overdue task (worried mango). Click any of them to filter the list.
 - **Everyone onboarding.** An alphabetical list with search, how long each person has been here, their progress and status.
 - **A new hire's page.** Their rings and path, exactly as they see it. A **+** stone at the end of each section adds a task to their path.
 - **Jump to what's overdue.** On a new hire's page, click the overdue count next to their name to jump to the task they haven't finished. Click again for the next one.

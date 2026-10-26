@@ -78,7 +78,7 @@ _Built after the new hire's path, once it felt solid._
 
 _Changes after a fresh look the next day._
 
-- **Nerdier On time mango:** oversized thick-rimmed glasses held together with tape, magnified eyes and buck teeth.
+- **Nerdier On time mango:** oversized thick-rimmed glasses and magnified eyes.
 - **Jump to what's overdue:** on a new hire's page in Sarah's or David's view, clicking the overdue count next to their name scrolls to the unfinished task and flashes it. With several, each click moves to the next.
 - **David's Team history tab:** on-time rate by the quarter engineers started, the tasks most often finished late, average days to finish, and a table of every past engineer. A "What stands out" note ties it to today: security training was late for 11 of 14 past engineers and is overdue right now for Emily and Carlos, with a suggested fix.
 

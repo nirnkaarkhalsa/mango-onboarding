@@ -141,11 +141,6 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
           {/* lens glare */}
           <path d="M35 66 L 42 60.5" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" opacity="0.9" />
           <path d="M64 66 L 71 60.5" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" opacity="0.9" />
-          {/* tape holding the glasses together */}
-          <g transform="rotate(-10 60 70)">
-            <rect x="53.5" y="64" width="13" height="12" rx="2" fill="#ffffff" stroke="#93a28f" strokeWidth="1.5" />
-            <path d="M56 66.5 L 64 73.5 M 64 66.5 L 56 73.5" stroke="#93a28f" strokeWidth="1.3" strokeLinecap="round" />
-          </g>
         </g>
       ) : cheer ? (
         <g stroke="#1f2a22" strokeWidth="4" strokeLinecap="round" fill="none">
@@ -177,12 +172,7 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
       {worried ? (
         <path d="M50 99 Q 60 90 70 99" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
       ) : study ? (
-        <g>
-          {/* goofy grin with buck teeth */}
-          <path d="M49 93 Q 60 106 71 93 Z" fill="#7a2e1f" stroke="#1f2a22" strokeWidth="2.5" strokeLinejoin="round" />
-          <rect x="55" y="93" width="10" height="7" rx="1.5" fill="#ffffff" stroke="#1f2a22" strokeWidth="2" />
-          <path d="M60 93 L 60 100" stroke="#1f2a22" strokeWidth="1.8" />
-        </g>
+        <path d="M50 93 Q 60 102 70 93" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
       ) : cheer ? (
         <g>
           <path d="M47 90 Q 60 110 73 90 Z" fill="#7a2e1f" stroke="#1f2a22" strokeWidth="2.5" strokeLinejoin="round" />
