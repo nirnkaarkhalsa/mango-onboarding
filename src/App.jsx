@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { CalendarDays, CircleCheck, Mail, Map as MapIcon, RotateCcw, Send, UserPlus, Users } from 'lucide-react'
+import { CalendarDays, ChartColumn, CircleCheck, Mail, Map as MapIcon, RotateCcw, Send, UserPlus, Users } from 'lucide-react'
 import { DEMO_TODAY } from './data/onboarding'
 import { buildSeed, viewers } from './data/roster'
 import { usePersistentState } from './lib/usePersistentState'
@@ -16,9 +16,9 @@ const seed = buildSeed()
 
 const firstTab = { emily: 'path', sarah: 'people', david: 'people' }
 
-// Emily's page background shifts a touch with each section she reaches:
-// the usual pale green, a hint of yellow in First Week, a hint more green in First Month.
-const PAPER = { before: '#F6FAF2', week: '#FAF8E6', month: '#EDF6E6' }
+// Emily's page background takes on a hint of Mango's color for the section she's in:
+// pale green before Day 1, pale yellow in First Week, pale orange in First Month.
+const PAPER = { before: '#F6FAF2', week: '#FAF8E6', month: '#FCF2E6' }
 
 export default function App() {
   const [store, setStore] = usePersistentState(STORE_KEY, seed)
@@ -139,6 +139,7 @@ export default function App() {
           ]
         : [
             { id: 'people', label: 'My team', icon: Users },
+            { id: 'history', label: 'Team history', icon: ChartColumn },
             { id: 'mail', label: 'Mail', icon: Send },
           ]
 

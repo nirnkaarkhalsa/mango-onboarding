@@ -31,7 +31,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
         </div>
 
         <div className="grid grid-cols-[auto_1fr] items-center gap-4 lg:flex lg:flex-1 lg:gap-x-6">
-          <Ring onClick={onRingClick && (() => onRingClick('all'))} label="See all your tasks" hint>
+          <Ring onClick={onRingClick && (() => onRingClick('all'))} label="See all your tasks">
           <SegmentedRing
             className="size-24 md:size-[124px]"
             size={124}
@@ -107,7 +107,7 @@ export default function ProgressHeader({ stats, overdue, dayNumber, onOpenTask, 
 }
 
 // Rings become buttons that open the full task list when a click handler is given.
-function Ring({ onClick, label, className = '', hint, children }) {
+function Ring({ onClick, label, className = '', children }) {
   if (!onClick) return <div className={className}>{children}</div>
   return (
     <button
@@ -115,10 +115,9 @@ function Ring({ onClick, label, className = '', hint, children }) {
       onClick={onClick}
       title={label}
       aria-label={label}
-      className={`group rounded-2xl p-1 transition-transform hover:scale-[1.04] ${className}`}
+      className={`rounded-2xl p-1 transition-transform hover:scale-[1.04] ${className}`}
     >
       {children}
-      {hint && <span className="mt-1 block text-center text-xs font-extrabold text-[#2B7539] group-hover:underline">See all tasks</span>}
     </button>
   )
 }

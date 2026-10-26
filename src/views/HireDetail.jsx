@@ -1,4 +1,5 @@
-import { ArrowLeft, Mail as MailIcon } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowDown, ArrowLeft, Mail as MailIcon } from 'lucide-react'
 import { DEMO_TODAY } from '../data/onboarding'
 import { managers } from '../data/roster'
 import { formatDate, isOverdue, nextTask, phaseStats } from '../lib/progress'
@@ -16,6 +17,23 @@ export default function HireDetail({ hire, plan, progress, backLabel, onBack, on
   const s = STATUS[status]
   const t = tenure(hire)
   const manager = managers[hire.managerId]
+  const [flashId, setFlashId] = useState(null)
+  const [jumps, setJumps] = useState(0)
+
+  // Clicking "N overdue" scrolls to an unfinished overdue task and flashes it.
+  // With several, each click moves on to the next one.
+  const jumpToOverdue = () => {
+    const task = overdue[jumps % overdue.length]
+    setJumps((n) => n + 1)
+    const el = document.getElementById(`stone-${task.id}`)
+    if (!el) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+    el.focus({ preventScroll: true })
+    setFlashId(null)
+    requestAnimationFrame(() => setFlashId(task.id))
+    setTimeout(() => setFlashId((f) => (f === task.id ? null : f)), 1500)
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -35,9 +53,23 @@ export default function HireDetail({ hire, plan, progress, backLabel, onBack, on
               {manager ? `. Manager: ${manager.name}` : ''}
             </p>
           </div>
-          <span className="rounded-full px-3 py-1 text-sm font-extrabold" style={{ background: s.tint, color: s.deep }}>
-            {status === 'overdue' ? `${overdue.length} overdue` : s.label}
-          </span>
+          {overdue.length > 0 ? (
+            <button
+              type="button"
+              onClick={jumpToOverdue}
+              title={overdue.length > 1 ? 'Jump to the next overdue task' : 'Jump to the overdue task'}
+              className="flex items-center gap-1.5 rounded-full border-2 px-3 py-1 text-sm font-extrabold hover:border-current"
+              style={{ background: s.tint, color: s.deep, borderColor: s.tint }}
+            >
+              {overdue.length} overdue
+              <ArrowDown size={15} strokeWidth={3} aria-hidden />
+              <span className="sr-only">: jump to {overdue.length > 1 ? 'the next one' : 'it'} on the path</span>
+            </button>
+          ) : (
+            <span className="rounded-full px-3 py-1 text-sm font-extrabold" style={{ background: s.tint, color: s.deep }}>
+              {s.label}
+            </span>
+          )}
         </div>
         <button
           type="button"
@@ -68,7 +100,7 @@ export default function HireDetail({ hire, plan, progress, backLabel, onBack, on
         <p className="mb-6 text-center text-ink-soft">
           {hire.firstName}'s path, exactly as they see it. Open any task to message them about it, or use a <strong className="text-ink">+</strong> stone to add a task.
         </p>
-        <Path tasks={plan} state={progress} stats={stats} currentId={next?.id} onOpen={onOpenTask} mode="team" onAdd={onAddTask} />
+        <Path tasks={plan} state={progress} stats={stats} currentId={next?.id} flashId={flashId} onOpen={onOpenTask} mode="team" onAdd={onAddTask} />
       </div>
     </div>
   )

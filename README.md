@@ -19,7 +19,7 @@ New hires see one place with everything they need to do, broken into **Before Da
 - **Opens each task in full.** Due date, time it takes, who to ask (click the name for their contact details), step-by-step instructions and links, plus a **Task completed? Yes** box.
 - **Celebrates progress.** Each completed task gets confetti and its own Mango celebration: a dance, a backflip, a party, then graduation. Finishing a section grows Mango from small and green to fully ripe. One click returns to the path, right at the next task.
 - **Shows every task from the rings.** Click any progress ring to see all tasks, or one section's, filtered by done and to do.
-- **Shifts color as you go.** The page background takes on a hint of yellow in First Week and a hint more green in First Month.
+- **Shifts color as you go.** The page background takes on a hint of Mango's color: pale green before Day 1, pale yellow in First Week, pale orange in First Month.
 - **Fills in as you go.** Unfinished tasks are a light ghost of their phase color and fill in when done. A faded graduated Mango waits at the end of the path.
 - **Keeps red for problems.** Phases are green, yellow-green and golden orange, so red only ever means overdue.
 - **Shows who sent each message.** In Mail, click the sender's name for their contact details.
@@ -27,14 +27,15 @@ New hires see one place with everything they need to do, broken into **Before Da
 
 ## What Sarah sees
 
-- **Who needs attention, at a glance.** One pie chart and three mangos: Completed (graduated mango), On time (studious mango) and Has an overdue task (worried mango). Click any of them to filter the list.
+- **Who needs attention, at a glance.** One pie chart and three mangos: Completed (graduated mango), On time (nerdy mango in taped-up glasses) and Has an overdue task (worried mango). Click any of them to filter the list.
 - **Everyone onboarding.** An alphabetical list with search, how long each person has been here, their progress and status.
 - **A new hire's page.** Their rings and path, exactly as they see it. A **+** stone at the end of each section adds a task to their path.
+- **Jump to what's overdue.** On a new hire's page, click the overdue count next to their name to jump to the task they haven't finished. Click again for the next one.
 - **Messages that land in the new hire's Mail.** About a specific task, a general note, or a pre-filled reminder from their overdue count.
 - **Mail.** Updates to everyone, a department, or chosen people.
 - **Add new hire.** Pick a department to load its template, adjust it, choose the manager and publish.
 
-David, as a manager, gets the same dashboard and mail for his team only.
+David, as a manager, gets the same dashboard and mail for his team only, plus a **Team history** tab: on-time results for the 14 engineers who onboarded on his team since January 2025, the tasks most often finished late, and a table of every past engineer.
 
 ## Run it locally
 
@@ -54,7 +55,7 @@ Then open the address it prints, usually http://localhost:5173.
 1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 15 of 19 tasks, and two are overdue.
 2. Mango points to the first one: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
 3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete: Mango dances and grows from small and green to yellow-green. Click **Back to my path** and you land on the next task, and the background turns a touch yellow.
-4. Open the glowing stone, security training, and complete it. Mango does a backflip and grows fully ripe, and the background turns a touch green.
+4. Open the glowing stone, security training, and complete it. Mango does a backflip and grows fully ripe, and the background turns a touch orange.
 5. Complete the 30-day check-in for a Mango party, then the last task for graduation.
 6. Click a progress ring at the top to see every task, done and to do.
 7. In any task, click the name under **Questions?** to see how to reach that person. In **Mail**, click a sender's name to do the same.
@@ -66,7 +67,8 @@ Then the HR side:
 10. Click the worried mango to see the five people with overdue tasks, then open **Emily**.
 11. Click her overdue count to send a pre-filled reminder, and use a **+** stone to add a task to her First Week.
 12. Open **Add new hire**, pick a department, adjust the template and publish.
-13. Switch to **David** to see only his team, or back to **Emily** to see Sarah's reminder and the new task.
+13. On Emily's page, click **2 overdue** next to her name to jump to each unfinished task.
+14. Switch to **David** to see only his team, then open **Team history**. Or switch back to **Emily** to see Sarah's reminder and the new task.
 
 Click **Reset demo** at the bottom to start over.
 
@@ -81,7 +83,7 @@ Highlights:
 ## How it's built
 
 - [React](https://react.dev) and [Vite](https://vite.dev) for the app, [Tailwind CSS](https://tailwindcss.com) for styling.
-- Sample data lives in [`src/data/onboarding.js`](src/data/onboarding.js). Progress is saved in the browser with `localStorage`.
+- Sample data lives in [`src/data/onboarding.js`](src/data/onboarding.js) (Emily), [`src/data/roster.js`](src/data/roster.js) (everyone onboarding, managers and department templates) and [`src/data/history.js`](src/data/history.js) (David's past engineers). Progress is saved in the browser with `localStorage`.
 - No backend, accounts or API keys, so it runs anywhere.
 - The mascot is an original SVG character drawn for this prototype.
 

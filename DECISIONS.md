@@ -34,6 +34,9 @@ _What the brief didn't say, and what we assumed instead._
 | 16 | What mood is the overdue mascot? | Worried, not angry. | Sarah may share her screen, and the tone should stay supportive. |
 | 17 | When is an added task due? | By default, the end of the section it's added to, but never sooner than three days from today. The form warns if a past date is picked. | A task added on Day 19 to First Week shouldn't show as overdue the moment it's created. |
 | 18 | What happens when Sarah publishes a new plan? | The new hire appears in her list and David's (if he's the manager), and a welcome message is added to their mail. No real email is sent. | Shows the full loop without needing real email. |
+| 19 | Customer name | Kept **BrightPath Technologies**, because the brief names the customer. The mango mascot is the nod to MangoApps. | Building for the customer named in the request is part of the exercise. |
+| 20 | Where does Team history come from? | 14 sample engineers who finished onboarding on David's team since January 2025, each with the same 19-task plan. "On time" means finished by the due date. | No real history exists. The sample tells a plausible story (on-time rate rising, security training the most common slip) to show what the tab is for. |
+| 21 | Who sees Team history? | Only David, as an engineering manager. | It was asked for David. Sarah could get a company-wide version later. |
 
 ## Changes after the first test
 
@@ -56,7 +59,8 @@ _What changed after clicking through v1 as Emily would._
 | 13 | Random celebrations made the demo unpredictable. | The celebrations play in a fixed order: a dance, a backflip, a party, then graduation. The two section completions also show Mango growing. |
 | 14 | The progress rings showed totals but not which tasks they counted. | Clicking any ring opens a list of every task, or one section's, filtered by done and to do. Each task opens from there. |
 | 15 | In Mail, Emily could read a message but not see how to reach the sender. | Clicking the sender's name shows the same contact card used in task details. |
-| 16 | The page looked the same no matter how far Emily had come. | The background takes on a hint of yellow once she reaches First Week, and a hint more green in First Month. |
+| 16 | The page looked the same no matter how far Emily had come. | The background takes on a hint of Mango's color: pale green before Day 1, pale yellow in First Week, pale orange in First Month. (The first version used green for First Month, which didn't match Mango.) |
+| 17 | A "See all tasks" label under the big ring added clutter. | Removed the label. The rings still open the task list and grow slightly on hover to show they're clickable. |
 
 ## Added in v1.1: Sarah's and David's views
 
@@ -70,6 +74,14 @@ _Built after the new hire's path, once it felt solid._
 - **Add new hire:** pick a department to load its template, remove or add tasks, choose the manager, then publish.
 - **David's view:** the same dashboard and mail, limited to his team. He can't add new hires.
 
+## Added in v1.2
+
+_Changes after a fresh look the next day._
+
+- **Nerdier On time mango:** oversized thick-rimmed glasses held together with tape, magnified eyes and buck teeth.
+- **Jump to what's overdue:** on a new hire's page in Sarah's or David's view, clicking the overdue count next to their name scrolls to the unfinished task and flashes it. With several, each click moves to the next.
+- **David's Team history tab:** on-time rate by the quarter engineers started, the tasks most often finished late, average days to finish, and a table of every past engineer. A "What stands out" note ties it to today: security training was late for 11 of 14 past engineers and is overdue right now for Emily and Carlos, with a suggested fix.
+
 ## Not doing yet
 
 _What we deliberately left out, and why._
@@ -82,3 +94,4 @@ _What we deliberately left out, and why._
 | 4 | Celebration GIFs | Animated mascot and confetti first; GIFs after feedback. | After the first review with Sarah. |
 | 5 | Trends over time (for example, average days to finish onboarding) | Needs real history to be meaningful. | Once real data exists. |
 | 6 | Real login, email and HR system integrations | Not needed to test whether the experience works. | Before any real rollout. |
+| 7 | Company-wide history for Sarah | David's team history comes first to test whether the data is useful. | After feedback from David. |

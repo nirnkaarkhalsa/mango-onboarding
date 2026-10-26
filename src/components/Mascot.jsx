@@ -127,12 +127,24 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
       <ellipse cx="74" cy="72" rx="11" ry="13" fill="#ffffff" />
       {study ? (
         <g>
-          <circle cx="47" cy="78" r="5.5" fill="#1f2a22" />
-          <circle cx="73" cy="78" r="5.5" fill="#1f2a22" />
-          <g stroke="#1f3a2a" strokeWidth="3" fill="none">
-            <circle cx="46" cy="73" r="13" />
-            <circle cx="74" cy="73" r="13" />
-            <path d="M59 72 Q 60 69 61 72" />
+          {/* big magnified eyes, looking down at the book */}
+          <circle cx="46" cy="76" r="8" fill="#1f2a22" />
+          <circle cx="74" cy="76" r="8" fill="#1f2a22" />
+          <circle cx="49" cy="72.5" r="2.8" fill="#ffffff" />
+          <circle cx="77" cy="72.5" r="2.8" fill="#ffffff" />
+          {/* temple arms */}
+          <path d="M30 69 L 17 64" stroke="#1f2a22" strokeWidth="5" strokeLinecap="round" />
+          <path d="M90 69 L 103 64" stroke="#1f2a22" strokeWidth="5" strokeLinecap="round" />
+          {/* oversized, thick-rimmed frames */}
+          <rect x="29" y="57" width="33" height="30" rx="11" fill="#CFE8FF" fillOpacity="0.3" stroke="#1f2a22" strokeWidth="6.5" />
+          <rect x="58" y="57" width="33" height="30" rx="11" fill="#CFE8FF" fillOpacity="0.3" stroke="#1f2a22" strokeWidth="6.5" />
+          {/* lens glare */}
+          <path d="M35 66 L 42 60.5" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" opacity="0.9" />
+          <path d="M64 66 L 71 60.5" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" opacity="0.9" />
+          {/* tape holding the glasses together */}
+          <g transform="rotate(-10 60 70)">
+            <rect x="53.5" y="64" width="13" height="12" rx="2" fill="#ffffff" stroke="#93a28f" strokeWidth="1.5" />
+            <path d="M56 66.5 L 64 73.5 M 64 66.5 L 56 73.5" stroke="#93a28f" strokeWidth="1.3" strokeLinecap="round" />
           </g>
         </g>
       ) : cheer ? (
@@ -165,7 +177,12 @@ export default function Mascot({ stage = 'before', mood = 'happy', hat = 'none',
       {worried ? (
         <path d="M50 99 Q 60 90 70 99" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
       ) : study ? (
-        <path d="M54 94 Q 60 96 66 94" stroke="#1f2a22" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+        <g>
+          {/* goofy grin with buck teeth */}
+          <path d="M49 93 Q 60 106 71 93 Z" fill="#7a2e1f" stroke="#1f2a22" strokeWidth="2.5" strokeLinejoin="round" />
+          <rect x="55" y="93" width="10" height="7" rx="1.5" fill="#ffffff" stroke="#1f2a22" strokeWidth="2" />
+          <path d="M60 93 L 60 100" stroke="#1f2a22" strokeWidth="1.8" />
+        </g>
       ) : cheer ? (
         <g>
           <path d="M47 90 Q 60 110 73 90 Z" fill="#7a2e1f" stroke="#1f2a22" strokeWidth="2.5" strokeLinejoin="round" />
