@@ -2,8 +2,8 @@ import { DEMO_TODAY } from '../data/onboarding'
 import { daysBetween, formatDate, isOverdue } from './progress'
 
 export const STATUS = {
-  completed: { id: 'completed', label: 'Completed', long: 'finished onboarding', color: '#3E9B4F', text: '#3E9B4F', tint: '#D9EED8', deep: '#2B7539' },
-  ontime: { id: 'ontime', label: 'On time', long: 'still working, nothing overdue', color: '#C4B81A', text: '#9C9000', tint: '#F4F0C0', deep: '#5F6B00' },
+  completed: { id: 'completed', label: 'Completed', long: 'finished onboarding', color: '#3E9B4F', text: '#378C47', tint: '#D9EED8', deep: '#2B7539' },
+  ontime: { id: 'ontime', label: 'On time', long: 'still working, nothing overdue', color: '#C4B81A', text: '#8C8100', tint: '#F4F0C0', deep: '#5F6B00' },
   overdue: { id: 'overdue', label: 'Has an overdue task', long: 'have an overdue task', color: '#C23B3B', text: '#C23B3B', tint: '#FDE4E1', deep: '#A12F2F' },
 }
 
