@@ -62,11 +62,13 @@ export default function TeamDashboard({ viewer, summaries, filter, setFilter, qu
                       type="button"
                       onClick={() => toggle(k)}
                       aria-pressed={active}
-                      className="flex h-full w-full flex-col items-center rounded-2xl border-2 px-2 pb-3 pt-2 text-center transition-colors"
-                      style={{ borderColor: active ? s.color : 'var(--color-line)', background: active ? s.tint : '#ffffff' }}
+                      className="flex h-full w-full flex-col items-center rounded-2xl border-2 bg-white px-2 pb-3 pt-2 text-center transition-[border-color,box-shadow]"
+                      style={{ borderColor: active ? s.color : 'var(--color-line)', boxShadow: active ? `0 4px 0 ${s.color}` : 'none' }}
                     >
                       <Mascot stage="month" mood={m.mood} hat={m.hat} size={70} className="h-auto w-14 sm:w-[70px]" />
-                      <span className="mt-1 font-display text-3xl font-extrabold leading-none text-ink">{counts[k]}</span>
+                      <span className="mt-1 font-display text-4xl font-extrabold leading-none" style={{ color: s.text }}>
+                        {counts[k]}
+                      </span>
                       <span className="mt-1 flex items-center gap-1.5 text-sm font-extrabold leading-tight text-ink">
                         <span className="inline-block size-2.5 shrink-0 rounded-full" style={{ background: s.color }} aria-hidden />
                         {s.label}
