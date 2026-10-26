@@ -52,11 +52,11 @@ Then open the address it prints, usually http://localhost:5173.
 
 ## Demo walkthrough
 
-1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 15 of 19 tasks, and two are overdue.
+1. The page opens on Emily's **Day 19** (Friday, Nov 20, 2026). She has done 14 of 19 tasks, and two are overdue.
 2. Mango points to the first one: **Read the Employee Handbook**. Click **Show me where**, then click the glowing stone.
 3. Read the task details, then check **Task completed? Yes**. Before Day 1 is now complete: Mango dances and grows from small and green to yellow-green. Click **Back to my path** and you land on the next task, and the background turns a touch yellow.
 4. Open the glowing stone, security training, and complete it. Mango does a backflip and grows fully ripe, and the background turns a touch orange.
-5. Complete the 30-day check-in for a Mango party, then the last task for graduation.
+5. Finish the last three First Month tasks: enroll in benefits (Mango throws a party), the 30-day check-in, then the onboarding survey for graduation.
 6. Click a progress ring at the top to see every task, done and to do.
 7. In any task, click the name under **Questions?** to see how to reach that person. In **Mail**, click a sender's name to do the same.
 8. Open **Calendar** to see every task by due date, and **Completed** to revisit finished tasks.

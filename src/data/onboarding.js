@@ -359,8 +359,7 @@ export const tasks = [
     due: '2026-11-30',
     minutes: 25,
     owner: 'hr',
-    status: 'done',
-    completedAt: '2026-11-16',
+    status: 'todo',
     summary: 'Choose your health, dental and vision plans. You have 30 days from your start date to enroll.',
     steps: [
       'Compare the plans in the benefits guide.',

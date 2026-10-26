@@ -11,7 +11,7 @@ import NewHireView from './views/NewHireView'
 import TeamView from './views/TeamView'
 
 // Bump the version when the sample data changes, so old saved progress doesn't mix with new data.
-const STORE_KEY = 'mango-onboarding:store:v3'
+const STORE_KEY = 'mango-onboarding:store:v4'
 const seed = buildSeed()
 
 const firstTab = { emily: 'path', sarah: 'people', david: 'people' }
