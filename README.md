@@ -1,5 +1,7 @@
 # BrightPath Onboarding
 
+**Try it live: [mango-onboarding-one.vercel.app](https://mango-onboarding-one.vercel.app/)** No install needed. Switch between the new hire, HR and manager views from the profile menu in the top corner.
+
 A first-version onboarding portal for BrightPath Technologies, built as a prototype to show Sarah (HR Manager). It has three views: the new hire's path, Sarah's HR view of everyone onboarding, and a manager's view of their team. Switch between them from the profile menu in the top corner.
 
 New hires see one place with everything they need to do, broken into **Before Day 1**, **First Week** and **First Month**. Instead of a long checklist, tasks sit on a game-style path that highlights the one thing to focus on next. Mango, the mascot, grows and ripens alongside the new hire and graduates when onboarding is done.
@@ -38,6 +40,8 @@ New hires see one place with everything they need to do, broken into **Before Da
 David, as a manager, gets the same dashboard and mail for his team only.
 
 ## Run it locally
+
+Prefer the [live version](https://mango-onboarding-one.vercel.app/)? No setup needed. To run it on your own computer:
 
 You need [Node.js](https://nodejs.org) version 20.19 or newer.
 
