@@ -1,6 +1,6 @@
 # BrightPath Onboarding
 
-**Try it live: [mango-onboarding-one.vercel.app](https://mango-onboarding-one.vercel.app/)** No install needed. Switch between the new hire, HR and manager views from the profile menu in the top corner.
+**Try it live: [mango-onboarding-one.vercel.app](https://mango-onboarding-one.vercel.app/)** No install needed.
 
 A first-version onboarding portal for BrightPath Technologies, built as a prototype to show Sarah (HR Manager). It has three views: the new hire's path, Sarah's HR view of everyone onboarding, and a manager's view of their team. Switch between them from the profile menu in the top corner.
 
